@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +25,12 @@
       --wall: #f1f5f9;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg);
@@ -45,6 +51,7 @@
       align-items: center;
       flex-shrink: 0;
     }
+
     .header-title h1 {
       font-size: 18px;
       font-weight: 700;
@@ -53,6 +60,7 @@
       align-items: center;
       gap: 10px;
     }
+
     .badge {
       background: #0284c7;
       color: white;
@@ -63,15 +71,18 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .header-title p {
       font-size: 12px;
       color: var(--text-muted);
       margin-top: 2px;
     }
+
     .header-actions {
       display: flex;
       gap: 12px;
     }
+
     .btn {
       background: #334155;
       border: 1px solid #475569;
@@ -86,15 +97,18 @@
       align-items: center;
       gap: 6px;
     }
+
     .btn:hover {
       background: #475569;
       border-color: #64748b;
     }
+
     .btn-primary {
       background: var(--accent);
       color: #0f172a;
       border: none;
     }
+
     .btn-primary:hover {
       background: #7dd3fc;
     }
@@ -116,10 +130,12 @@
       flex-shrink: 0;
       overflow-y: auto;
     }
+
     .sidebar-section {
       padding: 16px;
       border-bottom: 1px solid var(--border);
     }
+
     .section-title {
       font-size: 11px;
       font-weight: 700;
@@ -128,6 +144,7 @@
       color: var(--text-muted);
       margin-bottom: 10px;
     }
+
     .building-item {
       padding: 10px 12px;
       border-radius: 8px;
@@ -136,19 +153,23 @@
       border: 1px solid transparent;
       transition: all 0.2s;
     }
+
     .building-item:hover {
       background: #334155;
     }
+
     .building-item.active {
       background: #0369a1;
       border-color: #38bdf8;
     }
+
     .building-item h3 {
       font-size: 13px;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
     }
+
     .building-item p {
       font-size: 11px;
       color: #cbd5e1;
@@ -162,6 +183,7 @@
       gap: 6px;
       margin-top: 8px;
     }
+
     .floor-tab {
       background: #1e293b;
       border: 1px solid var(--border);
@@ -173,9 +195,11 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .floor-tab:hover {
       background: #334155;
     }
+
     .floor-tab.active {
       background: var(--accent);
       color: #0f172a;
@@ -191,12 +215,14 @@
       border: 1px solid var(--border);
       font-size: 11.5px;
     }
+
     .floor-info-title {
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 6px;
       font-size: 12.5px;
     }
+
     .info-stat {
       display: flex;
       justify-content: space-between;
@@ -204,6 +230,7 @@
       border-bottom: 1px solid #1e293b;
       color: var(--text-muted);
     }
+
     .info-stat span:last-child {
       font-weight: 600;
       color: var(--text);
@@ -219,15 +246,20 @@
       align-items: center;
       justify-content: center;
     }
+
     .grid-overlay {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
         linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
       background-size: 20px 20px;
       pointer-events: none;
     }
+
     svg.blueprint {
       width: 92%;
       height: 92%;
@@ -238,17 +270,79 @@
     }
 
     /* SVG Blueprint Styling */
-    .wall-thick { stroke: #f8fafc; stroke-width: 4; fill: none; stroke-linecap: square; }
-    .wall-thin { stroke: #94a3b8; stroke-width: 2; fill: none; }
-    .door-swing { stroke: #38bdf8; stroke-width: 1.5; fill: none; stroke-dasharray: 4, 3; }
-    .window { stroke: #38bdf8; stroke-width: 3; fill: rgba(56, 189, 248, 0.2); }
-    .stair-step { stroke: #64748b; stroke-width: 1; fill: none; }
-    .room-zone { fill-opacity: 0.25; stroke-width: 1; stroke-opacity: 0.6; transition: fill-opacity 0.2s; cursor: pointer; }
-    .room-zone:hover { fill-opacity: 0.45; }
-    .room-label { font-family: monospace; font-size: 11px; font-weight: bold; fill: #ffffff; text-anchor: middle; pointer-events: none; }
-    .room-dim { font-family: monospace; font-size: 9.5px; fill: #cbd5e1; text-anchor: middle; pointer-events: none; }
-    .dimension-line { stroke: #f59e0b; stroke-width: 1; stroke-dasharray: 3, 2; }
-    .dimension-text { font-family: monospace; font-size: 9.5px; fill: #f59e0b; text-anchor: middle; }
+    .wall-thick {
+      stroke: #f8fafc;
+      stroke-width: 4;
+      fill: none;
+      stroke-linecap: square;
+    }
+
+    .wall-thin {
+      stroke: #94a3b8;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .door-swing {
+      stroke: #38bdf8;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-dasharray: 4, 3;
+    }
+
+    .window {
+      stroke: #38bdf8;
+      stroke-width: 3;
+      fill: rgba(56, 189, 248, 0.2);
+    }
+
+    .stair-step {
+      stroke: #64748b;
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .room-zone {
+      fill-opacity: 0.25;
+      stroke-width: 1;
+      stroke-opacity: 0.6;
+      transition: fill-opacity 0.2s;
+      cursor: pointer;
+    }
+
+    .room-zone:hover {
+      fill-opacity: 0.45;
+    }
+
+    .room-label {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: bold;
+      fill: #ffffff;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    .room-dim {
+      font-family: monospace;
+      font-size: 9.5px;
+      fill: #cbd5e1;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    .dimension-line {
+      stroke: #f59e0b;
+      stroke-width: 1;
+      stroke-dasharray: 3, 2;
+    }
+
+    .dimension-text {
+      font-family: monospace;
+      font-size: 9.5px;
+      fill: #f59e0b;
+      text-anchor: middle;
+    }
 
     /* Floating Legend */
     .legend-card {
@@ -265,11 +359,13 @@
       z-index: 20;
       backdrop-filter: blur(8px);
     }
+
     .legend-pill {
       display: flex;
       align-items: center;
       gap: 6px;
     }
+
     .legend-color {
       width: 12px;
       height: 12px;
@@ -288,11 +384,12 @@
       pointer-events: none;
       display: none;
       z-index: 50;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       transform: translate(-50%, -120%);
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -311,7 +408,7 @@
     <div class="sidebar">
       <div class="sidebar-section">
         <div class="section-title">Select Building</div>
-        
+
         <div class="building-item active" onclick="selectBuilding(0)">
           <h3>1. Girls Academic Complex <span>G+3</span></h3>
           <p>Senior +1/+2 (16 CR x 60 = 960) & Day School</p>
@@ -365,15 +462,29 @@
     <div class="viewport">
       <div class="grid-overlay"></div>
       <svg class="blueprint" id="blueprint-svg" viewBox="0 0 1000 650"></svg>
-      
+
       <div class="legend-card">
-        <div class="legend-pill"><div class="legend-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
-        <div class="legend-pill"><div class="legend-color" style="background:#0d9488;"></div><span>Labs / STEM</span></div>
-        <div class="legend-pill"><div class="legend-color" style="background:#6d28d9;"></div><span>Hostel Rooms</span></div>
-        <div class="legend-pill"><div class="legend-color" style="background:#b45309;"></div><span>Dining / Multi</span></div>
-        <div class="legend-pill"><div class="legend-color" style="background:#475569;"></div><span>Admin / Staff</span></div>
-        <div class="legend-pill"><div class="legend-color" style="background:#be123c;"></div><span>Restrooms</span></div>
-        <div class="legend-pill"><div class="legend-color" style="background:#15803d;"></div><span>Sports / Courtyard</span></div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#0284c7;"></div><span>Classrooms</span>
+        </div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#0d9488;"></div><span>Labs / STEM</span>
+        </div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#6d28d9;"></div><span>Hostel Rooms</span>
+        </div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#b45309;"></div><span>Dining / Multi</span>
+        </div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#475569;"></div><span>Admin / Staff</span>
+        </div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#be123c;"></div><span>Restrooms</span>
+        </div>
+        <div class="legend-pill">
+          <div class="legend-color" style="background:#15803d;"></div><span>Sports / Courtyard</span>
+        </div>
       </div>
 
       <div id="room-tooltip"></div>
@@ -1289,4 +1400,5 @@
     selectBuilding(0);
   </script>
 </body>
+
 </html>
