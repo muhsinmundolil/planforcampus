@@ -370,6 +370,276 @@
       border-radius: 2px;
       transition: width 0.1s linear;
     }
+
+    /* ------------------------------------------------------------- */
+    /* MOBILE NAVIGATION & RESPONSIVE TOUCH ENGINE                  */
+    /* ------------------------------------------------------------- */
+    .mobile-top-bar,
+    #mobile-nav-dock,
+    #mobile-walk-controls,
+    #exit-walk-btn,
+    .mobile-close-controls {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      #header-panel {
+        top: 10px;
+        left: 10px;
+        max-width: calc(100vw - 120px);
+        padding: 7px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      #header-panel h1 {
+        font-size: 13px;
+        margin-bottom: 0;
+      }
+      #header-panel .subtitle,
+      #header-panel .stat-row {
+        display: none;
+      }
+      #header-panel.expanded {
+        max-width: calc(100vw - 20px);
+        border-radius: 12px;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+      #header-panel.expanded .subtitle,
+      #header-panel.expanded .stat-row {
+        display: flex;
+      }
+
+      #controls-panel {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        max-height: 75vh;
+        overflow-y: auto;
+        border-radius: 20px 20px 0 0;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        padding: 20px;
+      }
+      #controls-panel.mobile-open {
+        display: flex !important;
+        animation: slideUp 0.25s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      .mobile-close-controls {
+        display: flex;
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: #e2e8f0;
+        border: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-size: 16px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #legend-panel {
+        display: none;
+      }
+
+      #hint-bar {
+        display: none;
+      }
+
+      /* Mobile Top Right Quick Action Buttons */
+      .mobile-top-bar {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 6px;
+        z-index: 40;
+      }
+      .mobile-top-btn {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        color: #1a1e21;
+        padding: 6px 10px;
+        border-radius: 18px;
+        font-size: 11px;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+        backdrop-filter: blur(8px);
+      }
+      .mobile-top-btn:active {
+        transform: scale(0.94);
+        background: #0284c7;
+        color: white;
+      }
+
+      /* Mobile Bottom Quick-Navigation Dock */
+      #mobile-nav-dock {
+        position: absolute;
+        bottom: 12px;
+        left: 0;
+        width: 100vw;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 6px 12px;
+        z-index: 30;
+        -webkit-overflow-scrolling: touch;
+        pointer-events: auto;
+      }
+      #mobile-nav-dock::-webkit-scrollbar {
+        display: none;
+      }
+      .dock-chip {
+        flex-shrink: 0;
+        background: rgba(18, 24, 38, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 7px 13px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        white-space: nowrap;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .dock-chip:active {
+        transform: scale(0.95);
+        background: #0284c7;
+        border-color: #38bdf8;
+      }
+      .dock-chip.chip-active {
+        background: #0284c7;
+        border-color: #38bdf8;
+      }
+
+      /* Inspect Card Mobile Sheet */
+      #inspect-card {
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        border-radius: 20px 20px 0 0 !important;
+        max-height: 60vh !important;
+        overflow-y: auto !important;
+        padding: 20px !important;
+        z-index: 100 !important;
+      }
+
+      /* Cinema Mode Adjustments on Mobile */
+      body.cinema-mode #cinema-bar-top,
+      body.cinema-mode #cinema-bar-bottom {
+        height: 6vh;
+      }
+      #cinema-overlay {
+        bottom: 7vh;
+        width: 95%;
+      }
+      .cinema-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 14px;
+        gap: 8px;
+      }
+      .cinema-controls {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+      }
+      .cinema-btn {
+        padding: 6px 8px;
+        font-size: 10.5px;
+        flex: 1;
+        text-align: center;
+      }
+
+      /* Mobile Walk Virtual D-Pad Controller */
+      #mobile-walk-controls {
+        position: absolute;
+        bottom: 24px;
+        left: 20px;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        z-index: 45;
+        user-select: none;
+      }
+      .dpad-row {
+        display: flex;
+        gap: 6px;
+      }
+      .dpad-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(18, 24, 38, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        touch-action: none;
+      }
+      .dpad-btn:active {
+        background: #0284c7;
+        transform: scale(0.92);
+      }
+      #exit-walk-btn {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #dc2626;
+        color: white;
+        padding: 7px 16px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 700;
+        display: none;
+        z-index: 45;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        cursor: pointer;
+      }
+    }
+
+    /* Clean Fullscreen View Mode (One Tap to Hide All UI) */
+    body.clean-view #header-panel,
+    body.clean-view #controls-panel,
+    body.clean-view #legend-panel,
+    body.clean-view #hint-bar,
+    body.clean-view #mobile-nav-dock {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(20px);
+    }
   </style>
   <script type="importmap">
   {
@@ -405,12 +675,43 @@
     </div>
   </div>
 
+  <!-- Mobile Top Quick Bar -->
+  <div class="mobile-top-bar">
+    <button class="mobile-top-btn" onclick="toggleCleanView()" title="Toggle UI">👁️ View</button>
+    <button class="mobile-top-btn" onclick="toggleMobileSettings()" title="Settings">⚙️ Controls</button>
+    <a href="campus_floor_plans.html" class="mobile-top-btn" style="background:#0284c7; color:#fff; border-color:#38bdf8;">📐 Plans</a>
+  </div>
+
+  <!-- Mobile Bottom Quick Navigation Dock -->
+  <div id="mobile-nav-dock">
+    <div class="dock-chip chip-active" onclick="setMobileView('perspective', this)">🔄 Overview</div>
+    <div class="dock-chip" onclick="startCinematicTour(false)" style="background: linear-gradient(135deg, #e67e22, #d35400);">🎬 Drone Tour</div>
+    <div class="dock-chip" onclick="setMobileView('girls', this)">🏢 Girls Academic</div>
+    <div class="dock-chip" onclick="setMobileView('hostel', this)">🛌 Girls Hostel</div>
+    <div class="dock-chip" onclick="setMobileView('center', this)">⚽ Sports Centroid</div>
+    <div class="dock-chip" onclick="setMobileView('gate2', this)">🏫 CBSE School</div>
+    <div class="dock-chip" onclick="setMobileView('gate1', this)">🧸 Kindergarten</div>
+    <div class="dock-chip" onclick="setMobileView('gate3', this)">🚪 Gate 3 (Girls)</div>
+    <div class="dock-chip" onclick="setMobileView('pedestrian', this)" style="background: #0284c7;">🚶 Walk Mode</div>
+  </div>
+
+  <!-- Mobile Walk Controls (Virtual Touch Controller) -->
+  <button id="exit-walk-btn" onclick="exitWalkMode()">✕ Exit Walk Mode</button>
+  <div id="mobile-walk-controls">
+    <button class="dpad-btn" id="dpad-up" ontouchstart="walkDir.forward=true; event.preventDefault();" ontouchend="walkDir.forward=false">▲</button>
+    <div class="dpad-row">
+      <button class="dpad-btn" id="dpad-left" ontouchstart="walkDir.left=true; event.preventDefault();" ontouchend="walkDir.left=false">◀</button>
+      <button class="dpad-btn" id="dpad-down" ontouchstart="walkDir.backward=true; event.preventDefault();" ontouchend="walkDir.backward=false">▼</button>
+      <button class="dpad-btn" id="dpad-right" ontouchstart="walkDir.right=true; event.preventDefault();" ontouchend="walkDir.right=false">▶</button>
+    </div>
+  </div>
+
   <div id="hint-bar">
     Click any building to inspect floor-by-floor space plans • Drag to Orbit • Scroll to Zoom
   </div>
 
-  <div id="header-panel" class="glass-panel">
-    <h1>4.5-Acre Master Plan <span class="badge-live">LOD 350 Ultra</span></h1>
+  <div id="header-panel" class="glass-panel" onclick="toggleHeaderExpand()" title="Tap to toggle campus statistics">
+    <h1>4.5-Acre Master Plan <span class="badge-live">LOD 350</span> <span style="font-size:10px; color:#64748b; margin-left:auto;">▾ Info</span></h1>
     <div class="subtitle">High-Fidelity Architectural Model • Validated Life Safety & Zoning</div>
     
     <div class="stat-row">
@@ -444,6 +745,7 @@
   </div>
 
   <div id="controls-panel" class="glass-panel">
+    <button class="mobile-close-controls" onclick="toggleMobileSettings()">&times;</button>
     <button class="btn btn-special" onclick="startCinematicTour(false)">
       &#9654; <b>Play Cinematic Tour</b>
     </button>
@@ -531,9 +833,18 @@
     renderer.toneMappingExposure = 1.1;
     container.appendChild(renderer.domElement);
 
+    renderer.domElement.style.touchAction = 'none';
+
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+    controls.dampingFactor = 0.08;
+    controls.rotateSpeed = 0.75;
+    controls.zoomSpeed = 1.15;
+    controls.panSpeed = 0.8;
+    controls.touches = {
+      ONE: THREE.TOUCH.ROTATE,
+      TWO: THREE.TOUCH.DOLLY_PAN
+    };
     controls.target.set(0, 0, 0);
     controls.maxPolarAngle = Math.PI / 2.05;
 
@@ -1461,6 +1772,78 @@
       document.getElementById('inspect-card').style.display = 'none';
     };
 
+    // Mobile View Navigation Dock
+    window.setMobileView = function(view, chipEl) {
+      if (isCinematicMode) exitCinematicTour();
+      if (chipEl) {
+        document.querySelectorAll('.dock-chip').forEach(c => c.classList.remove('chip-active'));
+        chipEl.classList.add('chip-active');
+      }
+      if (view === 'pedestrian') {
+        startMobileWalk();
+        return;
+      } else {
+        exitWalkMode();
+      }
+
+      if (view === 'perspective') gsapToCamera(0, 160, 185, 0, 0, 0);
+      else if (view === 'top') gsapToCamera(0, 240, 0.1, 0, 0, 0);
+      else if (view === 'girls') gsapToCamera(-45, 45, -35, -45, 12, -75);
+      else if (view === 'hostel') gsapToCamera(-75, 40, 10, -45, 10, -20);
+      else if (view === 'center') gsapToCamera(12, 55, 60, 12, 0, -5);
+      else if (view === 'gate1') gsapToCamera(52, 45, 100, 52, 8, 44);
+      else if (view === 'gate2') gsapToCamera(115, 55, -10, 54, 8, -10);
+      else if (view === 'gate3') gsapToCamera(-50, 50, 100, -50, 8, 30);
+    };
+
+    window.toggleCleanView = function() {
+      document.body.classList.toggle('clean-view');
+    };
+
+    window.toggleMobileSettings = function() {
+      const panel = document.getElementById('controls-panel');
+      panel.classList.toggle('mobile-open');
+    };
+
+    window.toggleHeaderExpand = function() {
+      const panel = document.getElementById('header-panel');
+      panel.classList.toggle('expanded');
+    };
+
+    // Mobile Virtual Touch Walk Controller
+    window.walkDir = { forward: false, backward: false, left: false, right: false };
+    let isWalkMode = false;
+
+    function startMobileWalk() {
+      isWalkMode = true;
+      const walkCtrl = document.getElementById('mobile-walk-controls');
+      const exitBtn = document.getElementById('exit-walk-btn');
+      const dock = document.getElementById('mobile-nav-dock');
+      if (walkCtrl) walkCtrl.style.display = 'flex';
+      if (exitBtn) exitBtn.style.display = 'block';
+      if (dock) dock.style.display = 'none';
+
+      gsapToCamera(12, 2.2, 40, 12, 2.0, -10);
+      controls.maxPolarAngle = Math.PI / 2.01;
+      controls.minDistance = 1;
+      controls.maxDistance = 120;
+    }
+
+    window.exitWalkMode = function() {
+      isWalkMode = false;
+      window.walkDir = { forward: false, backward: false, left: false, right: false };
+      const walkCtrl = document.getElementById('mobile-walk-controls');
+      const exitBtn = document.getElementById('exit-walk-btn');
+      const dock = document.getElementById('mobile-nav-dock');
+      if (walkCtrl) walkCtrl.style.display = 'none';
+      if (exitBtn) exitBtn.style.display = 'none';
+      if (dock) dock.style.display = 'flex';
+
+      controls.maxPolarAngle = Math.PI / 2.05;
+      controls.minDistance = 10;
+      controls.maxDistance = 500;
+    };
+
     // Camera Presets
     window.setCameraView = function(view) {
       if (isCinematicMode) exitCinematicTour();
@@ -1845,6 +2228,35 @@
             exitCinematicTour();
           }
         }
+      }
+
+      // Mobile Pedestrian Walk Engine
+      if (isWalkMode) {
+        const moveSpeed = 0.45;
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        forward.y = 0;
+        forward.normalize();
+        const side = new THREE.Vector3(-forward.z, 0, forward.x);
+
+        if (walkDir.forward) {
+          camera.position.addScaledVector(forward, moveSpeed);
+          controls.target.addScaledVector(forward, moveSpeed);
+        }
+        if (walkDir.backward) {
+          camera.position.addScaledVector(forward, -moveSpeed);
+          controls.target.addScaledVector(forward, -moveSpeed);
+        }
+        if (walkDir.left) {
+          camera.position.addScaledVector(side, -moveSpeed);
+          controls.target.addScaledVector(side, -moveSpeed);
+        }
+        if (walkDir.right) {
+          camera.position.addScaledVector(side, moveSpeed);
+          controls.target.addScaledVector(side, moveSpeed);
+        }
+        camera.position.y = 2.2;
+        controls.target.y = 2.0;
       }
 
       controls.update();

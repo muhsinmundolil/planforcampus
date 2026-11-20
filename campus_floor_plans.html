@@ -387,6 +387,201 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       transform: translate(-50%, -120%);
     }
+
+    /* Floating Zoom Controls */
+    .zoom-toolbar {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+    }
+    .zoom-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(30, 41, 59, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: transform 0.15s ease, background 0.15s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .zoom-btn:active {
+      transform: scale(0.92);
+      background: #0284c7;
+    }
+    .mobile-specs-toggle {
+      display: none;
+    }
+
+    /* Mobile Responsive Overrides */
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 12px;
+      }
+      .header-title h1 {
+        font-size: 13.5px;
+        gap: 6px;
+      }
+      .header-title p {
+        display: none;
+      }
+      .header-actions .btn {
+        padding: 5px 9px;
+        font-size: 11px;
+      }
+      .header-actions button {
+        display: none; /* Hide print on mobile */
+      }
+      .workspace {
+        flex-direction: column;
+        height: calc(100vh - 46px);
+      }
+      .sidebar {
+        width: 100%;
+        max-height: none;
+        flex-shrink: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        background: #111827;
+        padding: 0;
+        z-index: 25;
+      }
+      .sidebar-section {
+        padding: 5px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .section-title {
+        display: none;
+      }
+      .building-list {
+        display: flex;
+        overflow-x: auto;
+        gap: 6px;
+        padding: 2px 0;
+        -webkit-overflow-scrolling: touch;
+      }
+      .building-item {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        border-radius: 20px;
+        background: #1e293b;
+        border: 1px solid #334155;
+      }
+      .building-item h3 {
+        font-size: 11.5px;
+        gap: 4px;
+      }
+      .building-item p {
+        display: none;
+      }
+      .floor-tabs {
+        display: flex;
+        overflow-x: auto;
+        gap: 5px;
+        margin-top: 0;
+        padding: 2px 0;
+        -webkit-overflow-scrolling: touch;
+      }
+      .floor-tab {
+        padding: 4px 10px;
+        font-size: 11px;
+        border-radius: 14px;
+        flex-shrink: 0;
+      }
+      .floor-info-box {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        border-radius: 16px 16px 0 0;
+        background: #0f172a;
+        border: 1px solid #38bdf8;
+        box-shadow: 0 -8px 30px rgba(0,0,0,0.7);
+        z-index: 100;
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 18px;
+      }
+      .floor-info-box.mobile-open {
+        display: block !important;
+        animation: slideUp 0.25s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      .mobile-close-specs {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: #334155;
+        border: none;
+        color: white;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        font-size: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .viewport {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
+      }
+      svg.blueprint {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+      }
+      .legend-card {
+        bottom: 12px;
+        left: 12px;
+        padding: 6px 10px;
+        gap: 8px;
+        max-width: calc(100vw - 120px);
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 10px;
+      }
+      .mobile-specs-toggle {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(2, 132, 199, 0.9);
+        color: white;
+        border: 1px solid #38bdf8;
+        padding: 5px 12px;
+        border-radius: 14px;
+        font-size: 11px;
+        font-weight: 700;
+        z-index: 30;
+        cursor: pointer;
+        backdrop-filter: blur(8px);
+      }
+    }
   </style>
 </head>
 
@@ -409,34 +604,36 @@
       <div class="sidebar-section">
         <div class="section-title">Select Building</div>
 
-        <div class="building-item active" onclick="selectBuilding(0)">
-          <h3>1. Girls Academic Complex <span>G+3</span></h3>
-          <p>Senior +1/+2 (16 CR x 60 = 960) & Day School</p>
-        </div>
+        <div class="building-list">
+          <div class="building-item active" onclick="selectBuilding(0)">
+            <h3>1. Girls Academic <span>G+3</span></h3>
+            <p>Senior +1/+2 (16 CR x 60 = 960) & Day School</p>
+          </div>
 
-        <div class="building-item" onclick="selectBuilding(1)">
-          <h3>2. Girls Residential Hostel <span>G+4</span></h3>
-          <p>Courtyard Model • 650+ Beds • 400-Seat Dining</p>
-        </div>
+          <div class="building-item" onclick="selectBuilding(1)">
+            <h3>2. Girls Hostel <span>G+4</span></h3>
+            <p>Courtyard Model • 650+ Beds • 400-Seat Dining</p>
+          </div>
 
-        <div class="building-item" onclick="selectBuilding(2)">
-          <h3>3. General CBSE School <span>G+3</span></h3>
-          <p>Co-Ed Grades 1 to 10 • STEM & Assembly</p>
-        </div>
+          <div class="building-item" onclick="selectBuilding(2)">
+            <h3>3. General CBSE <span>G+3</span></h3>
+            <p>Co-Ed Grades 1 to 10 • STEM & Assembly</p>
+          </div>
 
-        <div class="building-item" onclick="selectBuilding(3)">
-          <h3>4. Kindergarten (KG) Block <span>G+1</span></h3>
-          <p>Pre-KG, LKG, UKG • Toddler Safe • Soft Turf</p>
-        </div>
+          <div class="building-item" onclick="selectBuilding(3)">
+            <h3>4. Kindergarten <span>G+1</span></h3>
+            <p>Pre-KG, LKG, UKG • Toddler Safe • Soft Turf</p>
+          </div>
 
-        <div class="building-item" onclick="selectBuilding(4)">
-          <h3>5. Sports & Aquatic Complex <span>G+1</span></h3>
-          <p>Semi-Olympic 25m Pool • Gym • Dual Airlocks</p>
-        </div>
+          <div class="building-item" onclick="selectBuilding(4)">
+            <h3>5. Sports & Aquatic <span>G+1</span></h3>
+            <p>Semi-Olympic 25m Pool • Gym • Dual Airlocks</p>
+          </div>
 
-        <div class="building-item" onclick="selectBuilding(5)">
-          <h3>6. Central Administration <span>G+1</span></h3>
-          <p>24/7 CCTV Security Command • Boardroom</p>
+          <div class="building-item" onclick="selectBuilding(5)">
+            <h3>6. Admin & Security <span>G+1</span></h3>
+            <p>24/7 CCTV Security Command • Boardroom</p>
+          </div>
         </div>
       </div>
 
@@ -446,6 +643,7 @@
       </div>
 
       <div class="floor-info-box" id="floor-info-card">
+        <button class="mobile-close-specs" onclick="toggleMobileSpecs()">&times;</button>
         <div class="floor-info-title" id="info-level-name">Ground Floor</div>
         <div class="info-stat"><span>Floor Built-Up Area:</span><span id="info-bua">13,000 sq ft</span></div>
         <div class="info-stat"><span>Floor Occupancy:</span><span id="info-occ">320 Persons</span></div>
@@ -461,7 +659,15 @@
     <!-- Viewport Blueprint Area -->
     <div class="viewport">
       <div class="grid-overlay"></div>
+      <button class="mobile-specs-toggle" onclick="toggleMobileSpecs()">ℹ️ Specs</button>
       <svg class="blueprint" id="blueprint-svg" viewBox="0 0 1000 650"></svg>
+
+      <!-- Zoom Toolbar -->
+      <div class="zoom-toolbar">
+        <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+        <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">&minus;</button>
+        <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom" style="font-size: 15px;">&#8635;</button>
+      </div>
 
       <div class="legend-card">
         <div class="legend-pill">
@@ -1378,6 +1584,121 @@
       document.getElementById('blueprint-svg').innerHTML = floor.svgContent;
     }
 
+    // Mobile Specs Drawer Toggle
+    function toggleMobileSpecs() {
+      const card = document.getElementById('floor-info-card');
+      card.classList.toggle('mobile-open');
+    }
+
+    // Interactive Zoom and Pan Engine
+    let scale = 1;
+    let pointX = 0;
+    let pointY = 0;
+    let startX = 0;
+    let startY = 0;
+    let isPanning = false;
+    let initialDistance = 0;
+    let initialScale = 1;
+
+    const svgEl = document.getElementById('blueprint-svg');
+    const viewportEl = document.querySelector('.viewport');
+
+    function updateTransform() {
+      svgEl.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+    }
+
+    function zoomIn() {
+      scale = Math.min(scale * 1.35, 4.5);
+      updateTransform();
+    }
+
+    function zoomOut() {
+      scale = Math.max(scale / 1.35, 0.7);
+      updateTransform();
+    }
+
+    function resetZoom() {
+      scale = 1;
+      pointX = 0;
+      pointY = 0;
+      updateTransform();
+    }
+
+    // Touch Pinch & Pan Gestures (Mobile)
+    viewportEl.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.zoom-toolbar') || e.target.closest('.mobile-specs-toggle') || e.target.closest('.legend-card')) return;
+      if (e.touches.length === 1) {
+        isPanning = true;
+        startX = e.touches[0].clientX - pointX;
+        startY = e.touches[0].clientY - pointY;
+      } else if (e.touches.length === 2) {
+        isPanning = false;
+        initialDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        initialScale = scale;
+      }
+    }, { passive: false });
+
+    viewportEl.addEventListener('touchmove', (e) => {
+      if (e.target.closest('.zoom-toolbar') || e.target.closest('.mobile-specs-toggle') || e.target.closest('.legend-card')) return;
+      e.preventDefault();
+      if (e.touches.length === 1 && isPanning) {
+        pointX = e.touches[0].clientX - startX;
+        pointY = e.touches[0].clientY - startY;
+        updateTransform();
+      } else if (e.touches.length === 2) {
+        const currentDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        if (initialDistance > 0) {
+          scale = Math.min(Math.max(initialScale * (currentDist / initialDistance), 0.7), 4.5);
+          updateTransform();
+        }
+      }
+    }, { passive: false });
+
+    viewportEl.addEventListener('touchend', (e) => {
+      if (e.touches.length === 0) isPanning = false;
+    });
+
+    // Mouse Wheel Zoom & Drag (Desktop)
+    viewportEl.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 1.15 : 0.88;
+      scale = Math.min(Math.max(scale * delta, 0.7), 4.5);
+      updateTransform();
+    }, { passive: false });
+
+    viewportEl.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.zoom-toolbar') || e.target.closest('.mobile-specs-toggle') || e.target.closest('.legend-card')) return;
+      if (e.button === 0) {
+        isPanning = true;
+        startX = e.clientX - pointX;
+        startY = e.clientY - pointY;
+        svgEl.style.cursor = 'grabbing';
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isPanning) {
+        pointX = e.clientX - startX;
+        pointY = e.clientY - startY;
+        updateTransform();
+      }
+      if (tooltip.style.display === 'block') {
+        tooltip.style.left = e.clientX + 'px';
+        tooltip.style.top = e.clientY + 'px';
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+      svgEl.style.cursor = 'grab';
+    });
+
     // Tooltip handling
     const tooltip = document.getElementById('room-tooltip');
     function showTooltip(e, text) {
@@ -1389,12 +1710,6 @@
     function hideTooltip() {
       tooltip.style.display = 'none';
     }
-    window.addEventListener('mousemove', (e) => {
-      if (tooltip.style.display === 'block') {
-        tooltip.style.left = e.clientX + 'px';
-        tooltip.style.top = e.clientY + 'px';
-      }
-    });
 
     // Initial load
     selectBuilding(0);
