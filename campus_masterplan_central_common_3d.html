@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.5-Acre Campus Cinematic 3D Master Plan Tour</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0d131a;
+      overflow: hidden;
+      color: #1a1e21;
+      user-select: none;
+    }
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    /* Standard Glass Panels */
+    .glass-panel {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      z-index: 10;
+      pointer-events: auto;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    #header-panel {
+      top: 20px;
+      left: 20px;
+      max-width: 410px;
+    }
+    h1 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: #1a1e21;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-live {
+      background: #27ae60;
+      color: white;
+      font-size: 9px;
+      padding: 2.5px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .subtitle {
+      font-size: 11.5px;
+      color: #6c757d;
+      margin-bottom: 12px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      padding: 3.5px 0;
+      border-bottom: 1px solid #f1f3f5;
+    }
+    .stat-label { color: #6c757d; }
+    .stat-val { font-weight: 600; color: #212529; }
+    
+    #controls-panel {
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      width: 225px;
+    }
+    .panel-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #868e96;
+      text-transform: uppercase;
+      margin-top: 5px;
+      margin-bottom: 2px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 3px;
+    }
+    .btn {
+      background: #ffffff;
+      border: 1px solid #ced4da;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      width: 100%;
+    }
+    .btn:hover {
+      background: #f8f9fa;
+      border-color: #adb5bd;
+    }
+    .btn.active {
+      background: #2b3a4a;
+      color: #fff;
+      border-color: #2b3a4a;
+    }
+    .btn-special {
+      background: linear-gradient(135deg, #e67e22, #d35400);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      padding: 9px 12px;
+      box-shadow: 0 4px 12px rgba(230, 126, 34, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-special:hover {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      transform: translateY(-1px);
+    }
+    .btn-small {
+      padding: 5px 8px;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    /* Sun Slider */
+    .slider-box {
+      margin-top: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #495057;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: #e67e22;
+      cursor: pointer;
+    }
+
+    /* Building Inspector Modal */
+    #inspect-card {
+      position: absolute;
+      right: 20px;
+      bottom: 24px;
+      width: 400px;
+      max-height: 84vh;
+      overflow-y: auto;
+      display: none;
+      animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .inspect-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #2b3a4a;
+      padding-bottom: 8px;
+    }
+    .inspect-title { font-size: 15px; font-weight: 700; color: #1a1e21; }
+    .inspect-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #adb5bd;
+      line-height: 1;
+    }
+    .inspect-close:hover { color: #dc3545; }
+    .inspect-meta-tag {
+      display: inline-block;
+      background: #e9ecef;
+      color: #495057;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2.5px 7px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      margin-right: 4px;
+    }
+    .inspect-floor-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 11px;
+    }
+    .inspect-floor-name { font-weight: 700; color: #2b3a4a; margin-bottom: 3px; }
+    .inspect-floor-desc { color: #495057; line-height: 1.45; }
+
+    #legend-panel {
+      bottom: 20px;
+      left: 20px;
+      font-size: 11px;
+      max-width: 350px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .legend-color {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .gate-pill {
+      font-size: 9px;
+      font-weight: 700;
+      color: white;
+      padding: 1.5px 5px;
+      border-radius: 3px;
+      margin-right: 4px;
+    }
+    #hint-bar {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      padding: 7px 20px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      pointer-events: none;
+      letter-spacing: 0.2px;
+      z-index: 10;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    }
+
+    /* ------------------------------------------------------------- */
+    /* CINEMATIC VIDEO & DRONE TOUR HUD                              */
+    /* ------------------------------------------------------------- */
+    .cinema-bar {
+      position: absolute;
+      left: 0;
+      width: 100vw;
+      background: #000000;
+      z-index: 50;
+      transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    #cinema-bar-top { top: 0; height: 0; }
+    #cinema-bar-bottom { bottom: 0; height: 0; }
+
+    body.cinema-mode #cinema-bar-top,
+    body.cinema-mode #cinema-bar-bottom {
+      height: 9vh;
+    }
+    body.cinema-mode #header-panel,
+    body.cinema-mode #controls-panel,
+    body.cinema-mode #legend-panel,
+    body.cinema-mode #hint-bar {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-15px);
+    }
+
+    #cinema-overlay {
+      position: absolute;
+      bottom: 11vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 960px;
+      display: none;
+      z-index: 60;
+      pointer-events: auto;
+    }
+    .cinema-card {
+      background: rgba(18, 24, 32, 0.88);
+      backdrop-filter: blur(16px);
+      border-radius: 12px;
+      padding: 16px 24px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .cinema-info {
+      flex: 1;
+    }
+    .cinema-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #f39c12;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .cinema-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .cinema-desc {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+    .cinema-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .cinema-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .cinema-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .cinema-btn.rec-active {
+      background: #e74c3c;
+      border-color: #c0392b;
+      animation: pulseRec 1.2s infinite;
+    }
+    @keyframes pulseRec {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+    .cinema-progress-bar {
+      position: absolute;
+      top: -3px;
+      left: 0;
+      height: 3px;
+      background: #e67e22;
+      width: 0%;
+      border-radius: 2px;
+      transition: width 0.1s linear;
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Cinematic 21:9 Anamorphic Letterbox Bars -->
+  <div id="cinema-bar-top" class="cinema-bar"></div>
+  <div id="cinema-bar-bottom" class="cinema-bar"></div>
+
+  <!-- Cinematic Tour HUD -->
+  <div id="cinema-overlay">
+    <div class="cinema-card">
+      <div class="cinema-progress-bar" id="cinema-progress"></div>
+      <div class="cinema-info">
+        <div class="cinema-tag" id="cinema-tag">SCENE 01 / 10 • ESTABLISHING SHOT</div>
+        <div class="cinema-title" id="cinema-title">Campus Aerial Overview</div>
+        <div class="cinema-desc" id="cinema-desc">4.50 Acres (18,211 m²) master-planned with 70.6% open sports recreation and segregated girls academic enclave.</div>
+      </div>
+      <div class="cinema-controls">
+        <button class="cinema-btn" onclick="prevCinematicScene()">&#9664; Prev</button>
+        <button class="cinema-btn" id="cinema-play-btn" onclick="toggleCinematicPlay()">Pause</button>
+        <button class="cinema-btn" onclick="nextCinematicScene()">Next &#9654;</button>
+        <button class="cinema-btn" id="cinema-rec-btn" onclick="toggleRecordVideo()">&#9679; Record Video</button>
+        <button class="cinema-btn" onclick="exitCinematicTour()" style="background:#495057;">&times; Exit</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="hint-bar">
+    Click any building to inspect floor-by-floor space plans • Drag to Orbit • Scroll to Zoom
+  </div>
+
+  <div id="header-panel" class="glass-panel">
+    <h1>4.5-Acre Master Plan <span class="badge-live">LOD 350 Ultra</span></h1>
+    <div class="subtitle">High-Fidelity Architectural Model • Validated Life Safety & Zoning</div>
+    
+    <div class="stat-row">
+      <span class="stat-label">Total Land Area:</span>
+      <span class="stat-val">4.50 Acres (150 m × 121 m = 18,211 m²)</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Ground Coverage:</span>
+      <span class="stat-val">29.4% (~57,500 sq ft footprint)</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Open Grounds & Recreation:</span>
+      <span class="stat-val">70.6% (~3.18 Acres sports & landscape)</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Girls +1/+2 Capacity:</span>
+      <span class="stat-val">16 Classrooms × 60 = 960 students</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Girls Hostel:</span>
+      <span class="stat-val">G+4 Courtyard (650+ beds, 400-seat Dining)</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Circulation Gates:</span>
+      <span class="stat-val">3 Independent Dedicated Gates</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Peak Occupant Load:</span>
+      <span class="stat-val">4,475 Persons (IBC Compliant)</span>
+    </div>
+  </div>
+
+  <div id="controls-panel" class="glass-panel">
+    <button class="btn btn-special" onclick="startCinematicTour(false)">
+      &#9654; <b>Play Cinematic Tour</b>
+    </button>
+    <button class="btn btn-special" onclick="startCinematicTour(true)" style="background:linear-gradient(135deg, #c0392b, #962d22); margin-top:2px;">
+      &#9679; <b>Record & Export Video</b>
+    </button>
+    <a href="campus_floor_plans.html" class="btn" style="background:#0284c7; color:#fff; text-decoration:none; text-align:center; margin-top:2px; font-weight:700; border:none; display:block;">
+      &#128462; <b>2D Floor Plans (All Levels)</b>
+    </a>
+
+    <div class="panel-section-title">Camera Presets</div>
+    <button class="btn active" onclick="setCameraView('perspective')">Axonometric Overview</button>
+    <button class="btn" onclick="setCameraView('top')">Top Plan (Site Zoning)</button>
+    <button class="btn" onclick="setCameraView('gate1')">Gate 1: KG School</button>
+    <button class="btn" onclick="setCameraView('gate2')">Gate 2: CBSE School</button>
+    <button class="btn" onclick="setCameraView('gate3')">Gate 3: Girls Enclave</button>
+    <button class="btn" onclick="setCameraView('center')">Central Sports & Pool</button>
+    <button class="btn" onclick="setCameraView('pedestrian')">Ground Pedestrian Walk</button>
+
+    <div class="panel-section-title">Atmosphere & Solar Study</div>
+    <div class="btn-group">
+      <button class="btn btn-small active" id="btn-day" onclick="setLightingPreset('day')">Day</button>
+      <button class="btn btn-small" id="btn-sunset" onclick="setLightingPreset('sunset')">Sunset</button>
+      <button class="btn btn-small" id="btn-night" onclick="setLightingPreset('night')">Night</button>
+    </div>
+    <div class="slider-box">
+      <div class="slider-header">
+        <span>Sun Time:</span><span id="sun-time-label">12:00 PM</span>
+      </div>
+      <input type="range" id="sun-slider" min="6" max="19" step="0.25" value="12" oninput="onSunSliderChange(this.value)">
+    </div>
+
+    <div class="panel-section-title">Visual Layers</div>
+    <button class="btn" id="btn-trees" onclick="toggleTrees()">Toggle Landscape Trees</button>
+  </div>
+
+  <!-- Building Inspection Modal -->
+  <div id="inspect-card" class="glass-panel">
+    <div class="inspect-header">
+      <div>
+        <div class="inspect-title" id="inspect-title">Building Name</div>
+        <div style="font-size:11px; color:#6c757d; margin-top:2px;" id="inspect-meta">Levels • Footprint • BUA</div>
+      </div>
+      <button class="inspect-close" onclick="closeInspectCard()">&times;</button>
+    </div>
+    <div id="inspect-badges" style="margin-bottom:8px;"></div>
+    <div id="inspect-content"></div>
+  </div>
+
+  <div id="legend-panel" class="glass-panel">
+    <div style="font-weight:700; margin-bottom:6px;">Campus Infrastructure Legend</div>
+    <div class="legend-item"><div class="legend-color" style="background:#c0392b;"></div><span><span class="gate-pill" style="background:#c0392b;">GATE 3</span><b>Girls Enclave Wall & Gate</b></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#d81b60;"></div><span><b>Girls Academic Complex</b> (G+3)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#8e44ad;"></div><span><b>Girls Residential Hostel</b> (G+4 Courtyard)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#b5342a;"></div><span><b>Central 200m Track & Turf</b></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#2980b9;"></div><span><b>Indoor Sports Hub & Semi-Olympic Pool</b></span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#34495e;"></div><span><span class="gate-pill" style="background:#34495e;">GATE 2</span><b>General CBSE School</b> (G+3)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#f1c40f;"></div><span><span class="gate-pill" style="background:#e67e22;">GATE 1</span><b>KG School & Playground</b> (G+1)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#7f8c8d;"></div><span><b>Central Admin & Security Command</b></span></div>
+  </div>
+
+  <div id="canvas-container"></div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // -----------------------------------------------------------------
+    // SCENE, RENDERER, CAMERA SETUP
+    // -----------------------------------------------------------------
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xdbe4eb);
+    scene.fog = new THREE.FogExp2(0xdbe4eb, 0.0028);
+
+    const camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 1, 1400);
+    camera.position.set(0, 160, 185);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    container.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(0, 0, 0);
+    controls.maxPolarAngle = Math.PI / 2.05;
+
+    // -----------------------------------------------------------------
+    // DYNAMIC SOLAR SYSTEM & LIGHTING
+    // -----------------------------------------------------------------
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    scene.add(ambientLight);
+
+    const sun = new THREE.DirectionalLight(0xfffaf0, 1.4);
+    sun.castShadow = true;
+    sun.shadow.mapSize.width = 2048;
+    sun.shadow.mapSize.height = 2048;
+    sun.shadow.camera.near = 10;
+    sun.shadow.camera.far = 420;
+    sun.shadow.camera.left = -120;
+    sun.shadow.camera.right = 120;
+    sun.shadow.camera.top = 120;
+    sun.shadow.camera.bottom = -120;
+    sun.shadow.bias = -0.0004;
+    scene.add(sun);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xb0bec5, 0.45);
+    scene.add(hemiLight);
+
+    const streetLights = new THREE.Group();
+    scene.add(streetLights);
+
+    // -----------------------------------------------------------------
+    // PROCEDURAL TEXTURE GENERATORS
+    // -----------------------------------------------------------------
+    let isNightMode = false;
+    const facadeMaterials = [];
+
+    function createFacadeTexture(floors = 4, cols = 8, wallCol = '#f8f9fa', winCol = '#2c3e50', nightGlow = false) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = wallCol;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const floorH = canvas.height / floors;
+      const colW = canvas.width / cols;
+
+      for (let f = 0; f < floors; f++) {
+        ctx.fillStyle = '#adb5bd';
+        ctx.fillRect(0, f * floorH, canvas.width, 4);
+        ctx.fillStyle = 'rgba(0,0,0,0.1)';
+        ctx.fillRect(0, f * floorH + 4, canvas.width, 2);
+
+        for (let c = 0; c < cols; c++) {
+          const wx = c * colW + 6;
+          const wy = f * floorH + 10;
+          const ww = colW - 12;
+          const wh = floorH - 16;
+
+          ctx.fillStyle = '#2d3436';
+          ctx.fillRect(wx, wy, ww, wh);
+
+          if (nightGlow) {
+            ctx.fillStyle = (Math.random() > 0.28) ? '#ffeaa7' : '#1e272e';
+            ctx.fillRect(wx + 2, wy + 2, ww - 4, wh - 4);
+          } else {
+            ctx.fillStyle = winCol;
+            ctx.fillRect(wx + 2, wy + 2, ww - 4, wh - 4);
+            ctx.fillStyle = 'rgba(255,255,255,0.22)';
+            ctx.fillRect(wx + 3, wy + 3, ww * 0.4, wh - 6);
+          }
+
+          ctx.fillStyle = '#636e72';
+          ctx.fillRect(wx + ww - 3, wy, 3, wh);
+        }
+      }
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      return tex;
+    }
+
+    // 200m Track Texture
+    function createTrackTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 384;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#b5342a';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2.5;
+      const lanes = 4;
+      for (let i = 0; i < lanes; i++) {
+        const offset = 14 + i * 16;
+        ctx.beginPath();
+        ctx.roundRect(offset, offset, canvas.width - offset * 2, canvas.height - offset * 2, 70);
+        ctx.stroke();
+      }
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2, 14);
+      ctx.lineTo(canvas.width / 2, 14 + 4 * 16);
+      ctx.stroke();
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    // Multi-Court Texture
+    function createCourtTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#2980b9';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#27ae60';
+      ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2, 30);
+      ctx.lineTo(canvas.width / 2, canvas.height - 30);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2, 38, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeRect(30, canvas.height / 2 - 35, 60, 70);
+      ctx.strokeRect(canvas.width - 90, canvas.height / 2 - 35, 60, 70);
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    // Pool Tile Texture
+    function createPoolWaterTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#00a8ff';
+      ctx.fillRect(0, 0, 256, 256);
+
+      ctx.fillStyle = '#0033cc';
+      for (let i = 0; i < 6; i++) {
+        ctx.fillRect(20 + i * 40, 10, 6, 236);
+        ctx.fillRect(16 + i * 40, 20, 14, 5);
+        ctx.fillRect(16 + i * 40, 230, 14, 5);
+      }
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    // -----------------------------------------------------------------
+    // SITE HARDSCAPE & ROADS
+    // -----------------------------------------------------------------
+    const siteMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(150, 121),
+      new THREE.MeshStandardMaterial({ color: 0xe8e6e1, roughness: 0.9 })
+    );
+    siteMesh.rotation.x = -Math.PI / 2;
+    siteMesh.receiveShadow = true;
+    scene.add(siteMesh);
+
+    const siteLine = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.PlaneGeometry(150, 121)),
+      new THREE.LineBasicMaterial({ color: 0x495057, linewidth: 2 })
+    );
+    siteLine.rotation.x = -Math.PI / 2;
+    siteLine.position.y = 0.05;
+    scene.add(siteLine);
+
+    // Perimeter Ring Road
+    const roadMat = new THREE.MeshStandardMaterial({ color: 0x2d3436, roughness: 0.85 });
+    function createRoadSegment(x, z, w, d) {
+      const road = new THREE.Mesh(new THREE.PlaneGeometry(w, d), roadMat);
+      road.rotation.x = -Math.PI / 2;
+      road.position.set(x, 0.04, z);
+      road.receiveShadow = true;
+      scene.add(road);
+    }
+    createRoadSegment(0, 56, 146, 6);
+    createRoadSegment(0, -56, 146, 6);
+    createRoadSegment(-71, 0, 6, 118);
+    createRoadSegment(71, 0, 6, 118);
+
+    // Paved Pedestrian Walkways
+    const paverMat = new THREE.MeshStandardMaterial({ color: 0xdcdde1, roughness: 0.75 });
+    function createWalkway(x, z, w, d) {
+      const walk = new THREE.Mesh(new THREE.PlaneGeometry(w, d), paverMat);
+      walk.rotation.x = -Math.PI / 2;
+      walk.position.set(x, 0.05, z);
+      walk.receiveShadow = true;
+      scene.add(walk);
+    }
+    createWalkway(12, 35, 12, 16);
+    createWalkway(12, 4, 12, 14);
+    createWalkway(40, -10, 18, 6);
+    createWalkway(52, 38, 8, 12);
+
+    // Crosswalks
+    function createCrosswalk(x, z, w, d, rotY = 0) {
+      const group = new THREE.Group();
+      for (let i = -w/2 + 0.6; i < w/2; i += 1.2) {
+        const stripe = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.6, d),
+          new THREE.MeshBasicMaterial({ color: 0xffffff })
+        );
+        stripe.rotation.x = -Math.PI / 2;
+        stripe.position.set(i, 0.06, 0);
+        group.add(stripe);
+      }
+      group.position.set(x, 0, z);
+      group.rotation.y = rotY;
+      scene.add(group);
+    }
+    createCrosswalk(52, 56, 6, 5);
+    createCrosswalk(71, -10, 6, 5, Math.PI / 2);
+    createCrosswalk(-50, 56, 6, 5);
+
+    // -------------------------------------------------------------
+    // CENTRAL COMMON SPORTS HUB
+    // -------------------------------------------------------------
+    const trackMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(60, 44),
+      new THREE.MeshStandardMaterial({ map: createTrackTexture(), roughness: 0.8 })
+    );
+    trackMesh.rotation.x = -Math.PI / 2;
+    trackMesh.position.set(12, 0.1, -12);
+    trackMesh.receiveShadow = true;
+    scene.add(trackMesh);
+
+    const turfMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(42, 28),
+      new THREE.MeshStandardMaterial({ color: 0x27ae60, roughness: 0.7 })
+    );
+    turfMesh.rotation.x = -Math.PI / 2;
+    turfMesh.position.set(12, 0.15, -12);
+    turfMesh.receiveShadow = true;
+    scene.add(turfMesh);
+
+    // Soccer Goalposts
+    function createGoalPost(x, z, rotY = 0) {
+      const g = new THREE.Group();
+      const m = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const p1 = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 2.2), m);
+      p1.position.set(-2.2, 1.1, 0);
+      g.add(p1);
+      const p2 = p1.clone();
+      p2.position.x = 2.2;
+      g.add(p2);
+      const cross = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 4.4), m);
+      cross.rotation.z = Math.PI / 2;
+      cross.position.set(0, 2.2, 0);
+      g.add(cross);
+      const net = new THREE.Mesh(
+        new THREE.BoxGeometry(4.4, 2.2, 1.2),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.35 })
+      );
+      net.position.set(0, 1.1, -0.6);
+      g.add(net);
+      g.position.set(x, 0, z);
+      g.rotation.y = rotY;
+      scene.add(g);
+    }
+    createGoalPost(-8, -12, Math.PI / 2);
+    createGoalPost(32, -12, -Math.PI / 2);
+
+    // Outdoor Courts
+    const courtMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(40, 18),
+      new THREE.MeshStandardMaterial({ map: createCourtTexture(), roughness: 0.6 })
+    );
+    courtMesh.rotation.x = -Math.PI / 2;
+    courtMesh.position.set(12, 0.12, -45);
+    courtMesh.receiveShadow = true;
+    scene.add(courtMesh);
+
+    // Court Perimeter Ball-Stop Fence
+    const courtFence = new THREE.Mesh(
+      new THREE.BoxGeometry(40.4, 3.8, 18.4),
+      new THREE.MeshBasicMaterial({ color: 0x7f8c8d, wireframe: true, transparent: true, opacity: 0.38 })
+    );
+    courtFence.position.set(12, 1.9, -45);
+    scene.add(courtFence);
+
+    // Basketball Hoops
+    function createHoop(x, z, rotY = 0) {
+      const g = new THREE.Group();
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 3.6), new THREE.MeshStandardMaterial({ color: 0x2c3e50 }));
+      pole.position.y = 1.8;
+      g.add(pole);
+      const board = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.1, 0.1), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+      board.position.set(0, 3.2, 0.3);
+      g.add(board);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.25, 0.03, 8, 16), new THREE.MeshBasicMaterial({ color: 0xe67e22 }));
+      rim.rotation.x = Math.PI / 2;
+      rim.position.set(0, 3.0, 0.55);
+      g.add(rim);
+      g.position.set(x, 0, z);
+      g.rotation.y = rotY;
+      scene.add(g);
+    }
+    createHoop(-6, -45, Math.PI / 2);
+    createHoop(30, -45, -Math.PI / 2);
+
+    // -------------------------------------------------------------
+    // ARCHITECTURAL BUILDINGS (LOD 350)
+    // -------------------------------------------------------------
+    const interactiveBuildings = [];
+
+    function registerBuilding(meshGroup, data) {
+      meshGroup.userData = data;
+      interactiveBuildings.push(meshGroup);
+      scene.add(meshGroup);
+    }
+
+    function buildDetailedBlock(options) {
+      const { x, z, w, d, h, floors, wallColor, winColor, addSolar = true } = options;
+      const group = new THREE.Group();
+
+      const facadeTex = createFacadeTexture(floors, Math.round(w / 4), wallColor, winColor, false);
+      const geom = new THREE.BoxGeometry(w, h, d);
+      
+      const sideMat = new THREE.MeshStandardMaterial({ map: facadeTex, roughness: 0.5 });
+      const roofMat = new THREE.MeshStandardMaterial({ color: 0xdcdde1, roughness: 0.85 });
+      const bottomMat = new THREE.MeshBasicMaterial({ color: 0x222222 });
+
+      facadeMaterials.push({ mat: sideMat, floors, cols: Math.round(w / 4), wallColor, winColor });
+
+      const mats = [sideMat, sideMat, roofMat, bottomMat, sideMat, sideMat];
+      const mesh = new THREE.Mesh(geom, mats);
+      mesh.position.y = h / 2;
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      group.add(mesh);
+
+      // Slabs
+      for (let f = 1; f < floors; f++) {
+        const slabY = (h / floors) * f;
+        const slab = new THREE.Mesh(
+          new THREE.BoxGeometry(w + 0.3, 0.35, d + 0.3),
+          new THREE.MeshStandardMaterial({ color: 0xced4da, roughness: 0.6 })
+        );
+        slab.position.y = slabY;
+        slab.castShadow = true;
+        group.add(slab);
+      }
+
+      // Louvers
+      for (let f = 0; f < floors; f++) {
+        const louverY = (h / floors) * f + (h / floors) * 0.7;
+        const louver = new THREE.Mesh(
+          new THREE.BoxGeometry(w * 0.85, 0.15, 0.8),
+          new THREE.MeshStandardMaterial({ color: 0x34495e, roughness: 0.4 })
+        );
+        louver.position.set(0, louverY, d / 2 + 0.4);
+        louver.castShadow = true;
+        group.add(louver);
+      }
+
+      // Parapet
+      const parapet = new THREE.Mesh(
+        new THREE.BoxGeometry(w + 0.4, 0.75, d + 0.4),
+        new THREE.MeshStandardMaterial({ color: 0xbdc3c7, roughness: 0.6 })
+      );
+      parapet.position.y = h + 0.37;
+      parapet.castShadow = true;
+      group.add(parapet);
+
+      // Rooftop MEP
+      const mechBox = new THREE.Mesh(
+        new THREE.BoxGeometry(w * 0.28, 2.5, d * 0.28),
+        new THREE.MeshStandardMaterial({ color: 0x576574, roughness: 0.65 })
+      );
+      mechBox.position.set(w * 0.2, h + 1.25, 0);
+      mechBox.castShadow = true;
+      group.add(mechBox);
+
+      // Tanks
+      const tank1 = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.0, 1.0, 2.2, 16),
+        new THREE.MeshStandardMaterial({ color: 0x95afc0, metalness: 0.4, roughness: 0.3 })
+      );
+      tank1.position.set(-w * 0.25, h + 1.1, -d * 0.2);
+      tank1.castShadow = true;
+      group.add(tank1);
+
+      const tank2 = tank1.clone();
+      tank2.position.x = -w * 0.25 + 2.5;
+      group.add(tank2);
+
+      // Solar Array
+      if (addSolar) {
+        const pvPanelMat = new THREE.MeshStandardMaterial({ color: 0x130f40, metalness: 0.6, roughness: 0.2 });
+        for (let row = -1; row <= 1; row++) {
+          const panel = new THREE.Mesh(new THREE.BoxGeometry(w * 0.35, 0.1, 2.2), pvPanelMat);
+          panel.rotation.x = -Math.PI / 8;
+          panel.position.set(-w * 0.1, h + 0.6, row * 3.5);
+          panel.castShadow = true;
+          group.add(panel);
+        }
+      }
+
+      // Canopy Portico
+      const canopy = new THREE.Mesh(
+        new THREE.BoxGeometry(w * 0.35, 0.4, 4.5),
+        new THREE.MeshStandardMaterial({ color: 0x222f3e, roughness: 0.3 })
+      );
+      canopy.position.set(0, 3.8, d / 2 + 2.25);
+      canopy.castShadow = true;
+      group.add(canopy);
+
+      const p1 = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 3.8), new THREE.MeshStandardMaterial({ color: 0x718093, metalness: 0.5 }));
+      p1.position.set(-w * 0.14, 1.9, d / 2 + 4.1);
+      p1.castShadow = true;
+      group.add(p1);
+
+      const p2 = p1.clone();
+      p2.position.x = w * 0.14;
+      group.add(p2);
+
+      const edgeWire = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geom),
+        new THREE.LineBasicMaterial({ color: 0x212529, transparent: true, opacity: 0.25 })
+      );
+      edgeWire.position.copy(mesh.position);
+      group.add(edgeWire);
+
+      group.position.set(x, 0, z);
+      return group;
+    }
+
+    // 1. GIRLS ACADEMIC COMPLEX (G+3)
+    const girlsAcademic = buildDetailedBlock({
+      x: -50, z: 20, w: 38, d: 24, h: 14.5, floors: 4,
+      wallColor: '#ffffff', winColor: '#1e3799', addSolar: true
+    });
+    registerBuilding(girlsAcademic, {
+      title: "Girls Consolidated Academic Complex",
+      levels: "G+3 Floors • Height: 14.5m",
+      bua: "52,000 sq ft (Footprint: 13,000 sq ft)",
+      capacity: "+1/+2 (16 CR × 60 = 960 students) + Day School (8th-10th)",
+      badges: ["IBC Group E / A-3", "Peak Load: 1,680 Persons", "56 WCs Required", "2 Fire Stairs (2m width)"],
+      floors: [
+        { name: "Ground Floor", desc: "Day School Admin, Grade 8 Classrooms (4 sections), Junior STEM Tinkering Lab, Art & Music Studio, Sick Bay." },
+        { name: "First Floor", desc: "Grades 9 & 10 Classrooms (6 sections), Language & IT Lab (60 PCs), Double-Height Central Library, Counselor Suite." },
+        { name: "Second Floor (+1 Wing)", desc: "8 Senior Classrooms (+1: 480 capacity), Advanced Physics Lab & Chemistry Lab, Library Mezzanine, Faculty Common Room." },
+        { name: "Third Floor (+2 Wing)", desc: "8 Senior Classrooms (+2: 480 capacity), Advanced Biology Lab, AI/Robotics Suite, 300-seat Examination & AV Lecture Hall." }
+      ]
+    });
+
+    // 2. GIRLS HOSTEL (G+4 Courtyard)
+    const hostelComplex = new THREE.Group();
+    const hostelSouth = buildDetailedBlock({ x: 0, z: -8, w: 38, d: 10, h: 18, floors: 5, wallColor: '#f1f2f6', winColor: '#3c6382', addSolar: true });
+    hostelComplex.add(hostelSouth);
+    const hostelNorth = buildDetailedBlock({ x: 0, z: 8, w: 38, d: 10, h: 18, floors: 5, wallColor: '#f1f2f6', winColor: '#3c6382', addSolar: true });
+    hostelComplex.add(hostelNorth);
+    const hostelWest = buildDetailedBlock({ x: -15, z: 0, w: 8, d: 10, h: 18, floors: 5, wallColor: '#f1f2f6', winColor: '#3c6382', addSolar: false });
+    hostelComplex.add(hostelWest);
+
+    for (let f = 1; f < 5; f++) {
+      const by = (18 / 5) * f + 0.45;
+      const balcony = new THREE.Mesh(
+        new THREE.BoxGeometry(36, 0.9, 0.1),
+        new THREE.MeshStandardMaterial({ color: 0x8e44ad, metalness: 0.5, roughness: 0.4 })
+      );
+      balcony.position.set(0, by, -13.1);
+      hostelComplex.add(balcony);
+    }
+
+    const courtyardLawn = new THREE.Mesh(
+      new THREE.PlaneGeometry(22, 10),
+      new THREE.MeshStandardMaterial({ color: 0x2ecc71, roughness: 0.6 })
+    );
+    courtyardLawn.rotation.x = -Math.PI / 2;
+    courtyardLawn.position.set(4, 0.08, 0);
+    hostelComplex.add(courtyardLawn);
+
+    hostelComplex.position.set(-50, 0, -35);
+    registerBuilding(hostelComplex, {
+      title: "Girls Residential Hostel (Courtyard Model)",
+      levels: "G+4 Floors • Height: 18.0m",
+      bua: "55,000 sq ft (Footprint: 11,000 sq ft)",
+      capacity: "650–700 Boarders + 400-seat Dining Hall",
+      badges: ["IBC Group R-2 / A-2", "Peak Load: 920 Persons", "70 WCs + 85 Showers", "Fail-Safe Egress"],
+      floors: [
+        { name: "Ground Floor", desc: "Central 400-seat Dining Hall, Industrial Commercial Kitchen, 6-bed Infirmary, Warden Residences, Visitor Lounge, Laundromat." },
+        { name: "First Floor", desc: "40 Quad-Sharing Dorms (~160 boarders), 2 Sanitary Cores (10 showers, 10 WCs), Study Lounge, Resident Tutor Suite." },
+        { name: "Second Floor", desc: "40 Quad-Sharing Dorms (~160 boarders), Central Study Room, Wi-Fi Station, Double Sanitary Cores." },
+        { name: "Third Floor", desc: "40 Quad-Sharing Dorms (~160 boarders), Pantry Hub (microwaves, kettles, purifiers), Study Terrace." },
+        { name: "Fourth Floor", desc: "Senior Boarders Wing (+1 & +2 boarders quiet zone), Reading Solarium, Rooftop Solar Water Heating plant." }
+      ]
+    });
+
+    // Colonnade Walkway
+    const colonnade = new THREE.Group();
+    const roofWalk = new THREE.Mesh(
+      new THREE.BoxGeometry(4, 0.3, 31),
+      new THREE.MeshStandardMaterial({ color: 0x34495e, roughness: 0.4 })
+    );
+    roofWalk.position.set(-50, 3.6, -7.5);
+    roofWalk.castShadow = true;
+    colonnade.add(roofWalk);
+    for (let z = -22; z <= 7; z += 5) {
+      const colL = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 3.6), new THREE.MeshStandardMaterial({ color: 0xbdc3c7 }));
+      colL.position.set(-51.7, 1.8, z);
+      colL.castShadow = true;
+      colonnade.add(colL);
+      const colR = colL.clone();
+      colR.position.x = -48.3;
+      colonnade.add(colR);
+    }
+    scene.add(colonnade);
+
+    const innerPrivateLawn = new THREE.Mesh(
+      new THREE.PlaneGeometry(36, 16),
+      new THREE.MeshStandardMaterial({ color: 0x58d68d, roughness: 0.75 })
+    );
+    innerPrivateLawn.rotation.x = -Math.PI / 2;
+    innerPrivateLawn.position.set(-50, 0.08, -7);
+    scene.add(innerPrivateLawn);
+
+    // 3. GENERAL CBSE SCHOOL (G+3)
+    const cbseSchool = buildDetailedBlock({
+      x: 54, z: -10, w: 26, d: 50, h: 14.5, floors: 4,
+      wallColor: '#ffffff', winColor: '#0a3d62', addSolar: true
+    });
+    const stairTower = new THREE.Mesh(
+      new THREE.BoxGeometry(4, 15.5, 8),
+      new THREE.MeshStandardMaterial({ color: 0x1e272e, transparent: true, opacity: 0.75, roughness: 0.2 })
+    );
+    stairTower.position.set(54, 7.75, 17);
+    stairTower.castShadow = true;
+    scene.add(stairTower);
+
+    const flagPole = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.08, 0.12, 9),
+      new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.5 })
+    );
+    flagPole.position.set(54, 4.5, 20);
+    scene.add(flagPole);
+
+    registerBuilding(cbseSchool, {
+      title: "General CBSE School (Co-Ed)",
+      levels: "G+3 Floors • Height: 14.5m",
+      bua: "38,000 sq ft (Footprint: 9,500 sq ft)",
+      capacity: "Grades 1 to 10 (800–1,000 students)",
+      badges: ["IBC Group E", "Peak Load: 1,120 Persons", "Co-Ed Restroom Blocks", "Direct Gate 2 Access"],
+      floors: [
+        { name: "Ground Floor", desc: "Principal Office, Reception, Grade 1 & 2 Classrooms, Junior Activity Arena, Sick Bay." },
+        { name: "First Floor", desc: "Grades 3, 4 & 5 (6 classrooms), Junior Computer Lab, Discovery Math Lab, Staff Lounge." },
+        { name: "Second Floor", desc: "Grades 6, 7 & 8 (6 classrooms), Composite Secondary Science Lab, Central School Library." },
+        { name: "Third Floor", desc: "Grades 9 & 10 (4 classrooms), Senior Multimedia Lab, Social Science Lab, Indoor Debate/Activity Hall." }
+      ]
+    });
+
+    // 4. KINDERGARTEN (KG) SCHOOL (G+1)
+    const kgSchool = buildDetailedBlock({
+      x: 52, z: 44, w: 26, d: 16, h: 7.5, floors: 2,
+      wallColor: '#fff9e6', winColor: '#e58e26', addSolar: false
+    });
+    const kgPlayMat = new THREE.Mesh(
+      new THREE.PlaneGeometry(20, 12),
+      new THREE.MeshStandardMaterial({ color: 0x1abc9c, roughness: 0.5 })
+    );
+    kgPlayMat.rotation.x = -Math.PI / 2;
+    kgPlayMat.position.set(52, 0.1, 31);
+    scene.add(kgPlayMat);
+
+    function createPlayEquipment(x, z) {
+      const g = new THREE.Group();
+      const slideSteps = new THREE.Mesh(new THREE.BoxGeometry(0.8, 2, 0.8), new THREE.MeshStandardMaterial({ color: 0xe67e22 }));
+      slideSteps.position.set(-2, 1, 0);
+      g.add(slideSteps);
+      const chute = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.2, 3.5), new THREE.MeshStandardMaterial({ color: 0xf1c40f }));
+      chute.rotation.x = -Math.PI / 6;
+      chute.position.set(-2, 0.8, 1.2);
+      g.add(chute);
+      const bar = new THREE.Mesh(new THREE.BoxGeometry(4, 0.15, 0.15), new THREE.MeshStandardMaterial({ color: 0x2980b9 }));
+      bar.position.set(2, 2.2, 0);
+      g.add(bar);
+      const postL = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 2.4), new THREE.MeshStandardMaterial({ color: 0x2980b9 }));
+      postL.position.set(0.1, 1.1, 0);
+      g.add(postL);
+      const postR = postL.clone();
+      postR.position.x = 3.9;
+      g.add(postR);
+      g.position.set(x, 0, z);
+      scene.add(g);
+    }
+    createPlayEquipment(52, 31);
+
+    registerBuilding(kgSchool, {
+      title: "Kindergarten (KG) School",
+      levels: "G+1 Floor • Height: 7.5m (Safe Low-Rise)",
+      bua: "9,600 sq ft (Footprint: 4,800 sq ft)",
+      capacity: "250–300 Toddlers (Pre-KG, LKG, UKG)",
+      badges: ["IBC Group E (Early Ed)", "Direct Gate 1 Drop-off", "Fenced Soft Turf", "Zero Vehicle Conflict"],
+      floors: [
+        { name: "Ground Floor", desc: "Direct Gate 1 drop-off portico, 4 Pre-KG & LKG Activity Themed Rooms with low child-height sinks/WCs, Day Nap Room, exit to soft playground." },
+        { name: "First Floor", desc: "4 UKG Classrooms, Montessori Sensory & Music Exploration Room, Indoor soft-play ball pool and crawling area." }
+      ]
+    });
+
+    // 5. SPORTS & AQUATICS HUB
+    const sportsGroup = new THREE.Group();
+    const gymWing = buildDetailedBlock({
+      x: -4, z: 22, w: 20, d: 20, h: 10, floors: 2,
+      wallColor: '#f8f9fa', winColor: '#2980b9', addSolar: false
+    });
+    const barrelRoof = new THREE.Mesh(
+      new THREE.CylinderGeometry(10.2, 10.2, 20.2, 24, 1, false, 0, Math.PI),
+      new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.35 })
+    );
+    barrelRoof.rotation.z = Math.PI / 2;
+    barrelRoof.position.set(-4, 10, 22);
+    barrelRoof.castShadow = true;
+    scene.add(barrelRoof);
+    sportsGroup.add(gymWing);
+
+    const poolBasin = new THREE.Mesh(
+      new THREE.BoxGeometry(25, 1.8, 13),
+      new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2 })
+    );
+    poolBasin.position.set(20, 0.9, 22);
+    sportsGroup.add(poolBasin);
+
+    for (let lane = 0; lane < 6; lane++) {
+      const block = new THREE.Mesh(
+        new THREE.BoxGeometry(0.8, 0.6, 0.8),
+        new THREE.MeshStandardMaterial({ color: 0xe67e22, roughness: 0.4 })
+      );
+      block.position.set(20 - 10 + lane * 4, 1.9, 22 - 5.8);
+      sportsGroup.add(block);
+    }
+
+    const poolWater = new THREE.Mesh(
+      new THREE.PlaneGeometry(23.5, 11.5, 32, 16),
+      new THREE.MeshStandardMaterial({
+        map: createPoolWaterTexture(),
+        transparent: true,
+        opacity: 0.88,
+        roughness: 0.05,
+        metalness: 0.35
+      })
+    );
+    poolWater.rotation.x = -Math.PI / 2;
+    poolWater.position.set(20, 1.76, 22);
+    scene.add(poolWater);
+
+    const poolSkylight = new THREE.Mesh(
+      new THREE.BoxGeometry(25, 0.3, 13),
+      new THREE.MeshStandardMaterial({ color: 0x74b9ff, transparent: true, opacity: 0.65, roughness: 0.1 })
+    );
+    poolSkylight.position.set(20, 10, 22);
+    scene.add(poolSkylight);
+
+    sportsGroup.position.set(0, 0, 0);
+    registerBuilding(gymWing, {
+      title: "Central Sports & Aquatic Complex",
+      levels: "G+1 Floors • Height: 10.0m",
+      bua: "16,000 sq ft (Footprint: 8,000 sq ft)",
+      capacity: "Campus-Wide Shared Recreation Facility",
+      badges: ["IBC Group A-3 / A-4", "Semi-Olympic 25m Pool", "Dual Segregated Lockers", "Hardwood Gym"],
+      floors: [
+        { name: "Ground Floor", desc: "Semi-Olympic 25m Swimming Pool (6 lanes, privacy louvered enclosure), Dual segregated locker & shower wings (East for General, West for Girls Enclave), Pool filtration plant." },
+        { name: "First Floor", desc: "Indoor Hardwood Gymnasium (Badminton, Basketball & Gymnastics), Strength & Conditioning Fitness Center, Yoga & Aerobics Studio." }
+      ]
+    });
+
+    // 6. CENTRAL ADMIN & COMMAND
+    const adminBlock = buildDetailedBlock({
+      x: 12, z: 48, w: 28, d: 14, h: 8, floors: 2,
+      wallColor: '#ffffff', winColor: '#2f3640', addSolar: true
+    });
+    registerBuilding(adminBlock, {
+      title: "Central Administration & Security Command",
+      levels: "G+1 Floor • Height: 8.0m",
+      bua: "7,600 sq ft (Footprint: 3,800 sq ft)",
+      capacity: "Campus Master Administration & Security Center",
+      badges: ["IBC Group B", "24/7 CCTV Command", "Admissions & Accounts", "Trust Boardroom"],
+      floors: [
+        { name: "Ground Floor", desc: "24/7 Security CCTV Command Center monitoring all 3 gates and perimeter walls, Visitor Reception & Admissions Lounge, Accounts Counters." },
+        { name: "First Floor", desc: "Chairman & Trust Boardroom (24 seats), Campus Central Server & Fire System Console, HR & Legal Offices." }
+      ]
+    });
+
+    // -------------------------------------------------------------
+    // GATES & PERIMETER WALLS
+    // -------------------------------------------------------------
+    function createDetailedGate(x, z, label, gateColor, rotY = 0) {
+      const g = new THREE.Group();
+      const archMat = new THREE.MeshStandardMaterial({ color: gateColor, roughness: 0.4 });
+      const colL = new THREE.Mesh(new THREE.BoxGeometry(1.6, 6.2, 1.6), archMat);
+      colL.position.set(-4.5, 3.1, 0);
+      colL.castShadow = true;
+      g.add(colL);
+
+      const colR = new THREE.Mesh(new THREE.BoxGeometry(1.6, 6.2, 1.6), archMat);
+      colR.position.set(4.5, 3.1, 0);
+      colR.castShadow = true;
+      g.add(colR);
+
+      const header = new THREE.Mesh(new THREE.BoxGeometry(11, 1.4, 2.2), archMat);
+      header.position.set(0, 6.2, 0);
+      header.castShadow = true;
+      g.add(header);
+
+      const cabin = new THREE.Mesh(new THREE.BoxGeometry(4, 3.4, 4), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 }));
+      cabin.position.set(7.5, 1.7, 0);
+      cabin.castShadow = true;
+      g.add(cabin);
+
+      const barrier = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 6), new THREE.MeshStandardMaterial({ color: 0xff3838, roughness: 0.3 }));
+      barrier.rotation.z = Math.PI / 2;
+      barrier.position.set(0, 1.1, 0);
+      g.add(barrier);
+
+      g.position.set(x, 0, z);
+      g.rotation.y = rotY;
+      scene.add(g);
+      createCanvasSprite(label, x, 9.2, z, gateColor, '#ffffff');
+    }
+
+    createDetailedGate(52, 59, "GATE 1: KG ENTRANCE", "#e67e22");
+    createDetailedGate(73.5, -10, "GATE 2: CBSE SCHOOL ENTRANCE", "#34495e", -Math.PI / 2);
+    createDetailedGate(-50, 59, "GATE 3: GIRLS ENCLAVE GATE", "#c0392b");
+
+    function createSchoolBus(x, z, rotY = 0) {
+      const b = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(3, 3.2, 9), new THREE.MeshStandardMaterial({ color: 0xf39c12, roughness: 0.4 }));
+      body.position.y = 1.8;
+      body.castShadow = true;
+      b.add(body);
+      const glass = new THREE.Mesh(new THREE.BoxGeometry(3.05, 1.2, 6), new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.1 }));
+      glass.position.set(0, 2.2, 0.5);
+      b.add(glass);
+      b.position.set(x, 0, z);
+      b.rotation.y = rotY;
+      scene.add(b);
+    }
+    createSchoolBus(65, -30, 0);
+    createSchoolBus(-65, 40, 0);
+
+    function createWallSegment(x1, z1, x2, z2, h = 3.6) {
+      const len = Math.hypot(x2 - x1, z2 - z1);
+      const angle = Math.atan2(z2 - z1, x2 - x1);
+      const wallGeom = new THREE.BoxGeometry(len, h, 0.7);
+      const wallMat = new THREE.MeshStandardMaterial({ color: 0xb03a2e, roughness: 0.6 });
+      const wall = new THREE.Mesh(wallGeom, wallMat);
+      wall.position.set((x1 + x2) / 2, h / 2, (z1 + z2) / 2);
+      wall.rotation.y = -angle;
+      wall.castShadow = true;
+      scene.add(wall);
+    }
+    createWallSegment(-24, -55, -24, 7);
+    createWallSegment(-24, 18, -24, 55);
+    createWallSegment(-72, 55, -56, 55);
+    createWallSegment(-44, 55, -24, 55);
+    createWallSegment(-72, -55, -24, -55);
+    createWallSegment(-72, -55, -72, 55);
+
+    const internalGate = new THREE.Mesh(new THREE.BoxGeometry(6, 4.2, 8), new THREE.MeshStandardMaterial({ color: 0xc0392b, roughness: 0.4 }));
+    internalGate.position.set(-24, 2.1, 12.5);
+    internalGate.castShadow = true;
+    scene.add(internalGate);
+    createCanvasSprite("CONTROLLED SPORTS PORTAL", -24, 7.5, 12.5, '#c0392b', '#ffffff');
+
+    function addStreetLamp(x, z) {
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.14, 6.5), new THREE.MeshStandardMaterial({ color: 0x495057 }));
+      pole.position.set(x, 3.25, z);
+      pole.castShadow = true;
+      streetLights.add(pole);
+
+      const lampHead = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.25, 0.4), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x000000 }));
+      lampHead.position.set(x, 6.5, z);
+      streetLights.add(lampHead);
+
+      const light = new THREE.PointLight(0xffecc4, 0, 25);
+      light.position.set(x, 6.2, z);
+      lampHead.userData.pointLight = light;
+      streetLights.add(light);
+    }
+    addStreetLamp(0, 52);
+    addStreetLamp(35, 52);
+    addStreetLamp(-35, 52);
+    addStreetLamp(67, 10);
+    addStreetLamp(67, -25);
+    addStreetLamp(12, 10);
+    addStreetLamp(12, -30);
+
+    function createCanvasSprite(text, x, y, z, bgCol = '#ffffff', textCol = '#111') {
+      const canvas = document.createElement('canvas');
+      canvas.width = 440;
+      canvas.height = 90;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = bgCol;
+      ctx.roundRect(4, 4, canvas.width - 8, canvas.height - 8, 12);
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+      ctx.stroke();
+      ctx.font = 'bold 24px sans-serif';
+      ctx.fillStyle = textCol;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const spriteMat = new THREE.SpriteMaterial({ map: texture, depthTest: false });
+      const sprite = new THREE.Sprite(spriteMat);
+      sprite.position.set(x, y, z);
+      sprite.scale.set(24, 5.5, 1);
+      scene.add(sprite);
+    }
+
+    createCanvasSprite("GIRLS ACADEMIC COMPLEX (G+3)", -50, 20, 20);
+    createCanvasSprite("GIRLS RESIDENTIAL HOSTEL (G+4)", -50, 23, -35);
+    createCanvasSprite("CENTRAL SPORTS TURF & 200m TRACK", 12, 12, -12);
+    createCanvasSprite("INDOOR SPORTS & POOL PAVILION", 12, 16, 22);
+    createCanvasSprite("GENERAL CBSE SCHOOL (G+3)", 54, 19, -10);
+    createCanvasSprite("KG SCHOOL & PLAYGROUND", 52, 12, 44);
+
+    // Landscape Trees
+    const treeGroup = new THREE.Group();
+    function createCypress(x, z) {
+      const t = new THREE.Group();
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.25, 2), new THREE.MeshStandardMaterial({ color: 0x4a3728 }));
+      trunk.position.y = 1;
+      trunk.castShadow = true;
+      t.add(trunk);
+      const cone = new THREE.Mesh(new THREE.ConeGeometry(1.2, 7.5, 12), new THREE.MeshStandardMaterial({ color: 0x1e5128, roughness: 0.7 }));
+      cone.position.y = 4.8;
+      cone.castShadow = true;
+      t.add(cone);
+      t.position.set(x, 0, z);
+      treeGroup.add(t);
+    }
+    function createCanopyTree(x, z, r = 2.4, h = 5.5) {
+      const t = new THREE.Group();
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.42, h * 0.45, 6), new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 0.9 }));
+      trunk.position.y = (h * 0.45) / 2;
+      trunk.castShadow = true;
+      t.add(trunk);
+      const crown = new THREE.Mesh(new THREE.DodecahedronGeometry(r, 1), new THREE.MeshStandardMaterial({ color: 0x2e7d32, roughness: 0.6 }));
+      crown.position.y = h * 0.45 + r * 0.8;
+      crown.castShadow = true;
+      t.add(crown);
+      t.position.set(x, 0, z);
+      treeGroup.add(t);
+    }
+    for (let z = -52; z <= 52; z += 4.5) {
+      if (z > 6 && z < 19) continue;
+      createCypress(-21, z);
+    }
+    for (let x = -70; x <= 70; x += 12) {
+      createCanopyTree(x, -58, 2.5, 6);
+      createCanopyTree(x, 58, 2.4, 5.5);
+    }
+    scene.add(treeGroup);
+
+    window.toggleTrees = function() {
+      treeGroup.visible = !treeGroup.visible;
+      const b = document.getElementById('btn-trees');
+      b.classList.toggle('active', !treeGroup.visible);
+      b.innerText = treeGroup.visible ? "Toggle Landscape Trees" : "Show Trees (Hidden)";
+    };
+
+    // -------------------------------------------------------------
+    // RAYCASTING INSPECTOR
+    // -------------------------------------------------------------
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener('pointerdown', (e) => {
+      if (isCinematicMode || e.target.tagName !== 'CANVAS') return;
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(interactiveBuildings, true);
+
+      if (intersects.length > 0) {
+        let root = intersects[0].object;
+        while (root.parent && !root.userData.title) root = root.parent;
+        if (root && root.userData.title) {
+          showInspectCard(root.userData);
+          const p = root.position;
+          gsapToCamera(p.x, 42, p.z + 52, p.x, 8, p.z);
+        }
+      }
+    });
+
+    function showInspectCard(data) {
+      document.getElementById('inspect-title').innerText = data.title;
+      document.getElementById('inspect-meta').innerText = `${data.levels} • ${data.bua}`;
+      let bHtml = '';
+      if (data.badges) {
+        data.badges.forEach(b => { bHtml += `<span class="inspect-meta-tag">${b}</span>`; });
+      }
+      document.getElementById('inspect-badges').innerHTML = bHtml;
+      let html = '';
+      data.floors.forEach(f => {
+        html += `
+          <div class="inspect-floor-block">
+            <div class="inspect-floor-name">${f.name}</div>
+            <div class="inspect-floor-desc">${f.desc}</div>
+          </div>
+        `;
+      });
+      document.getElementById('inspect-content').innerHTML = html;
+      document.getElementById('inspect-card').style.display = 'block';
+    }
+
+    window.closeInspectCard = function() {
+      document.getElementById('inspect-card').style.display = 'none';
+    };
+
+    // Camera Presets
+    window.setCameraView = function(view) {
+      if (isCinematicMode) exitCinematicTour();
+      document.querySelectorAll('#controls-panel .btn').forEach(b => {
+        if (!b.id.startsWith('btn-') && !b.classList.contains('btn-special')) b.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      if (view === 'perspective') gsapToCamera(0, 160, 185, 0, 0, 0);
+      else if (view === 'top') gsapToCamera(0, 240, 0.1, 0, 0, 0);
+      else if (view === 'gate1') gsapToCamera(52, 45, 100, 52, 8, 44);
+      else if (view === 'gate2') gsapToCamera(115, 55, -10, 54, 8, -10);
+      else if (view === 'gate3') gsapToCamera(-50, 50, 100, -50, 8, 30);
+      else if (view === 'center') gsapToCamera(12, 55, 60, 12, 0, -5);
+      else if (view === 'pedestrian') gsapToCamera(12, 2.2, 40, 12, 2.0, -10);
+    };
+
+    function gsapToCamera(px, py, pz, tx, ty, tz) {
+      const startPos = camera.position.clone();
+      const targetPos = new THREE.Vector3(px, py, pz);
+      const startTarget = controls.target.clone();
+      const targetLook = new THREE.Vector3(tx, ty, tz);
+      let progress = 0;
+      function anim() {
+        progress += 0.045;
+        camera.position.lerpVectors(startPos, targetPos, progress);
+        controls.target.lerpVectors(startTarget, targetLook, progress);
+        if (progress < 1) requestAnimationFrame(anim);
+      }
+      anim();
+    }
+
+    // Solar Study
+    window.onSunSliderChange = function(hour) {
+      updateSunPosition(parseFloat(hour));
+    };
+
+    function updateSunPosition(hour) {
+      const hInt = Math.floor(hour);
+      const mInt = Math.round((hour - hInt) * 60);
+      const mStr = (mInt < 10 ? '0' : '') + mInt;
+      const ampm = hInt >= 12 ? 'PM' : 'AM';
+      const displayH = hInt > 12 ? hInt - 12 : (hInt === 0 ? 12 : hInt);
+      document.getElementById('sun-time-label').innerText = `${displayH}:${mStr} ${ampm}`;
+
+      const progress = (hour - 6) / (19 - 6);
+      const sunAngle = progress * Math.PI;
+      const sunDist = 210;
+      const sx = Math.cos(sunAngle) * sunDist;
+      const sy = Math.sin(sunAngle) * sunDist * 0.85;
+      const sz = Math.sin(sunAngle * 0.7) * 90;
+      sun.position.set(sx, Math.max(sy, -20), sz);
+
+      if (hour < 6.5 || hour > 18.5) setLightingPreset('night', false);
+      else if (hour < 8.0 || hour > 17.0) setLightingPreset('sunset', false);
+      else setLightingPreset('day', false);
+    }
+
+    window.setLightingPreset = function(mode, updateSlider = true) {
+      document.getElementById('btn-day').classList.toggle('active', mode === 'day');
+      document.getElementById('btn-sunset').classList.toggle('active', mode === 'sunset');
+      document.getElementById('btn-night').classList.toggle('active', mode === 'night');
+      isNightMode = (mode === 'night');
+
+      facadeMaterials.forEach(item => {
+        item.mat.map = createFacadeTexture(item.floors, item.cols, item.wallColor, item.winColor, isNightMode);
+        item.mat.needsUpdate = true;
+      });
+
+      if (mode === 'day') {
+        scene.background.setHex(0xdbe4eb);
+        scene.fog.color.setHex(0xdbe4eb);
+        ambientLight.intensity = 0.75;
+        ambientLight.color.setHex(0xffffff);
+        sun.intensity = 1.4;
+        sun.color.setHex(0xfffaf0);
+        streetLights.children.forEach(c => {
+          if (c.isPointLight) c.intensity = 0;
+          if (c.material && c.material.emissive) c.material.emissive.setHex(0x000000);
+        });
+        if (updateSlider) {
+          document.getElementById('sun-slider').value = 12;
+          document.getElementById('sun-time-label').innerText = "12:00 PM";
+          sun.position.set(0, 180, 50);
+        }
+      } else if (mode === 'sunset') {
+        scene.background.setHex(0xfad390);
+        scene.fog.color.setHex(0xfad390);
+        ambientLight.intensity = 0.6;
+        ambientLight.color.setHex(0xf39c12);
+        sun.intensity = 1.6;
+        sun.color.setHex(0xe67e22);
+        streetLights.children.forEach(c => {
+          if (c.isPointLight) c.intensity = 0.4;
+          if (c.material && c.material.emissive) c.material.emissive.setHex(0xffaa00);
+        });
+        if (updateSlider) {
+          document.getElementById('sun-slider').value = 17.5;
+          document.getElementById('sun-time-label').innerText = "5:30 PM";
+          sun.position.set(-160, 50, -40);
+        }
+      } else if (mode === 'night') {
+        scene.background.setHex(0x0a192f);
+        scene.fog.color.setHex(0x0a192f);
+        ambientLight.intensity = 0.28;
+        ambientLight.color.setHex(0x3a7bd5);
+        sun.intensity = 0.35;
+        sun.color.setHex(0x74b9ff);
+        streetLights.children.forEach(c => {
+          if (c.isPointLight) c.intensity = 2.2;
+          if (c.material && c.material.emissive) c.material.emissive.setHex(0xffea9f);
+        });
+        if (updateSlider) {
+          document.getElementById('sun-slider').value = 19;
+          document.getElementById('sun-time-label').innerText = "7:00 PM";
+          sun.position.set(-60, 120, -50);
+        }
+      }
+    };
+
+    // -------------------------------------------------------------
+    // CHOREOGRAPHED CINEMATIC DRONE TOUR & VIDEO RECORDER
+    // -------------------------------------------------------------
+    let isCinematicMode = false;
+    let isTourPlaying = false;
+    let currentSceneIndex = 0;
+    let sceneStartTime = 0;
+    const SCENE_DURATION = 6.5; // seconds per scene
+
+    const cinematicScenes = [
+      {
+        tag: "SCENE 01 / 10 • ESTABLISHING AERIAL OVERVIEW",
+        title: "4.5-Acre Master Plan: The Complete Campus",
+        desc: "Total Area: 18,211 m² with 70.6% dedicated to green grounds, running tracks, and athletic courts.",
+        camStart: [0, 175, 195], camEnd: [20, 160, 180],
+        targetStart: [0, 0, 0], targetEnd: [10, 0, 0],
+        sunHour: 8.5
+      },
+      {
+        tag: "SCENE 02 / 10 • GATE 1 & EARLY CHILDHOOD",
+        title: "Gate 1 & Kindergarten (KG) School (G+1)",
+        desc: "Dedicated North-East toddler drop-off loop, fenced rubberized soft playground, zero vehicle-crossing zone.",
+        camStart: [65, 30, 85], camEnd: [52, 18, 65],
+        targetStart: [52, 6, 44], targetEnd: [52, 4, 38],
+        sunHour: 9.5
+      },
+      {
+        tag: "SCENE 03 / 10 • GATE 2 & PRIMARY/SECONDARY",
+        title: "Gate 2 & General CBSE School (G+3)",
+        desc: "Direct bus bay on East perimeter, assembly ceremonial flagpole, composite science and robotics laboratories.",
+        camStart: [95, 26, 15], camEnd: [80, 18, -15],
+        targetStart: [54, 8, -10], targetEnd: [54, 8, -5],
+        sunHour: 11.0
+      },
+      {
+        tag: "SCENE 04 / 10 • CENTRAL COMMON SPINE",
+        title: "Central Athletic Running Track & Multi-Sport Turf",
+        desc: "Regulation 200m terracotta running track with marked sprint lanes and central soccer/cricket pitch.",
+        camStart: [12, 35, -55], camEnd: [12, 18, -25],
+        targetStart: [12, 2, -12], targetEnd: [12, 2, -5],
+        sunHour: 12.0
+      },
+      {
+        tag: "SCENE 05 / 10 • AQUATICS & INDOOR RECREATION",
+        title: "Semi-Olympic Swimming Pool & Gym Complex",
+        desc: "6-lane 25m pool with starting blocks, translucent privacy skylight, and dual segregated locker airlocks.",
+        camStart: [36, 16, 38], camEnd: [14, 12, 28],
+        targetStart: [20, 3, 22], targetEnd: [10, 5, 22],
+        sunHour: 13.0
+      },
+      {
+        tag: "SCENE 06 / 10 • GIRLS ENCLAVE PERIMETER",
+        title: "Gate 3 & The Secure Girls-Only Perimeter",
+        desc: "Dedicated North-West entrance, 24/7 security guardhouse, 3.6m boundary wall, and dense Italian Cypress acoustic screening.",
+        camStart: [-45, 28, 85], camEnd: [-50, 14, 62],
+        targetStart: [-50, 6, 40], targetEnd: [-50, 4, 30],
+        sunHour: 14.5
+      },
+      {
+        tag: "SCENE 07 / 10 • SENIOR SECONDARY ACADEMICS",
+        title: "Girls Consolidated Academic Complex (G+3)",
+        desc: "Consolidated landmark: 16 Classrooms × 60 capacity (+1/+2: 960 students) + Day School (8th-10th) with 3D solar arrays.",
+        camStart: [-32, 26, 32], camEnd: [-44, 16, 24],
+        targetStart: [-50, 10, 20], targetEnd: [-50, 6, 15],
+        sunHour: 15.5
+      },
+      {
+        tag: "SCENE 08 / 10 • PRIVATE RECREATION QUADRANGLE",
+        title: "Weather-Protected Colonnade & Quadrangle Lawn",
+        desc: "31m sheltered architectural walkway linking dormitories to classes across the private student reading lawn.",
+        camStart: [-50, 14, 10], camEnd: [-50, 6, -18],
+        targetStart: [-50, 3, -8], targetEnd: [-50, 2, -26],
+        sunHour: 16.5
+      },
+      {
+        tag: "SCENE 09 / 10 • RESIDENTIAL LIVING",
+        title: "Girls Residential Hostel (G+4 Courtyard)",
+        desc: "Accommodates 650+ boarders in quad-sharing suites, central open-air garden quadrangle, and 400-seat dining hall.",
+        camStart: [-34, 30, -32], camEnd: [-46, 20, -35],
+        targetStart: [-50, 12, -35], targetEnd: [-50, 8, -35],
+        sunHour: 17.5
+      },
+      {
+        tag: "SCENE 10 / 10 • GOLDEN HOUR GRAND FINALE",
+        title: "Harmonious Campus Balance & Sustainability",
+        desc: "A fully self-contained institutional landmark marrying high-security girls education with shared world-class athletics.",
+        camStart: [15, 70, 120], camEnd: [0, 160, 185],
+        targetStart: [0, 10, 0], targetEnd: [0, 0, 0],
+        sunHour: 18.2
+      }
+    ];
+
+    window.startCinematicTour = function(recordVideo = false) {
+      isCinematicMode = true;
+      isTourPlaying = true;
+      currentSceneIndex = 0;
+      sceneStartTime = performance.now();
+      document.body.classList.add('cinema-mode');
+      document.getElementById('cinema-overlay').style.display = 'block';
+      closeInspectCard();
+
+      loadScene(0);
+
+      if (recordVideo) {
+        startVideoRecording();
+      }
+    };
+
+    window.exitCinematicTour = function() {
+      isCinematicMode = false;
+      isTourPlaying = false;
+      document.body.classList.remove('cinema-mode');
+      document.getElementById('cinema-overlay').style.display = 'none';
+      if (isRecording) stopVideoRecording();
+      gsapToCamera(0, 160, 185, 0, 0, 0);
+    };
+
+    window.toggleCinematicPlay = function() {
+      isTourPlaying = !isTourPlaying;
+      document.getElementById('cinema-play-btn').innerText = isTourPlaying ? "Pause" : "Play";
+    };
+
+    window.nextCinematicScene = function() {
+      currentSceneIndex = (currentSceneIndex + 1) % cinematicScenes.length;
+      sceneStartTime = performance.now();
+      loadScene(currentSceneIndex);
+    };
+
+    window.prevCinematicScene = function() {
+      currentSceneIndex = (currentSceneIndex - 1 + cinematicScenes.length) % cinematicScenes.length;
+      sceneStartTime = performance.now();
+      loadScene(currentSceneIndex);
+    };
+
+    function loadScene(idx) {
+      const sc = cinematicScenes[idx];
+      document.getElementById('cinema-tag').innerText = sc.tag;
+      document.getElementById('cinema-title').innerText = sc.title;
+      document.getElementById('cinema-desc').innerText = sc.desc;
+      updateSunPosition(sc.sunHour);
+    }
+
+    // -------------------------------------------------------------
+    // VIDEO RECORDING ENGINE (MediaRecorder API)
+    // -------------------------------------------------------------
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let isRecording = false;
+
+    window.toggleRecordVideo = function() {
+      if (isRecording) {
+        stopVideoRecording();
+      } else {
+        if (!isCinematicMode) {
+          startCinematicTour(true);
+        } else {
+          startVideoRecording();
+        }
+      }
+    };
+
+    function startVideoRecording() {
+      try {
+        const stream = renderer.domElement.captureStream(60);
+        let options = { mimeType: 'video/webm;codecs=vp9', videoBitsPerSecond: 9000000 };
+        if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+          options = { mimeType: 'video/webm' };
+        }
+        mediaRecorder = new MediaRecorder(stream, options);
+        recordedChunks = [];
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = saveVideoFile;
+        mediaRecorder.start();
+        isRecording = true;
+        const b = document.getElementById('cinema-rec-btn');
+        b.classList.add('rec-active');
+        b.innerText = "⏹ Stop & Save";
+      } catch (err) {
+        alert("Browser video recording not supported or blocked: " + err.message);
+      }
+    }
+
+    function stopVideoRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        isRecording = false;
+        const b = document.getElementById('cinema-rec-btn');
+        b.classList.remove('rec-active');
+        b.innerText = "⏺ Record Video";
+      }
+    }
+
+    function saveVideoFile() {
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Campus_4.5Acre_Cinematic_Tour.webm';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // -------------------------------------------------------------
+    // ANIMATION & CINEMATIC CAMERA INTERPOLATION LOOP
+    // -------------------------------------------------------------
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    let clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const time = clock.getElapsedTime();
+
+      // Pool water wave ripple
+      if (poolWater && poolWater.material) {
+        poolWater.material.opacity = 0.82 + Math.sin(time * 2.5) * 0.06;
+      }
+
+      // Cinematic Tour Engine
+      if (isCinematicMode && isTourPlaying) {
+        const elapsed = (performance.now() - sceneStartTime) / 1000;
+        const t = Math.min(elapsed / SCENE_DURATION, 1.0);
+
+        // Smooth cubic ease-in-out
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        const sc = cinematicScenes[currentSceneIndex];
+
+        // Interpolate camera position
+        camera.position.x = sc.camStart[0] + (sc.camEnd[0] - sc.camStart[0]) * ease;
+        camera.position.y = sc.camStart[1] + (sc.camEnd[1] - sc.camStart[1]) * ease;
+        camera.position.z = sc.camStart[2] + (sc.camEnd[2] - sc.camStart[2]) * ease;
+
+        // Interpolate lookAt target
+        controls.target.x = sc.targetStart[0] + (sc.targetEnd[0] - sc.targetStart[0]) * ease;
+        controls.target.y = sc.targetStart[1] + (sc.targetEnd[1] - sc.targetStart[1]) * ease;
+        controls.target.z = sc.targetStart[2] + (sc.targetEnd[2] - sc.targetStart[2]) * ease;
+
+        // Update progress bar
+        const totalProgress = ((currentSceneIndex + t) / cinematicScenes.length) * 100;
+        document.getElementById('cinema-progress').style.width = `${totalProgress}%`;
+
+        // Advance to next scene
+        if (t >= 1.0) {
+          if (currentSceneIndex < cinematicScenes.length - 1) {
+            currentSceneIndex++;
+            sceneStartTime = performance.now();
+            loadScene(currentSceneIndex);
+          } else {
+            // Tour finished!
+            if (isRecording) {
+              stopVideoRecording();
+            }
+            exitCinematicTour();
+          }
+        }
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
