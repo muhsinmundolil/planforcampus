@@ -388,38 +388,60 @@
       transform: translate(-50%, -120%);
     }
 
-    /* Floating Zoom Controls */
-    .zoom-toolbar {
+    /* Floating Arrow Navigation Pad */
+    .nav-dpad-cluster {
       position: absolute;
       bottom: 16px;
       right: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
       z-index: 40;
+      background: rgba(15, 23, 42, 0.90);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      padding: 6px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      user-select: none;
+      touch-action: none;
     }
-    .zoom-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(30, 41, 59, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
-      font-size: 20px;
+    .dpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 42px);
+      grid-template-rows: repeat(3, 42px);
+      gap: 5px;
+      align-items: center;
+      justify-items: center;
+    }
+    .dpad-key {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #f8fafc;
+      font-size: 16px;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: transform 0.15s ease, background 0.15s ease;
       user-select: none;
+      touch-action: none;
       -webkit-tap-highlight-color: transparent;
+      transition: background 0.12s, transform 0.12s;
     }
-    .zoom-btn:active {
-      transform: scale(0.92);
+    .dpad-key:active {
       background: #0284c7;
+      color: #fff;
+      transform: scale(0.92);
+      border-color: #38bdf8;
+    }
+    .zoom-key {
+      background: #0369a1;
+      font-size: 20px;
+    }
+    .reset-key {
+      background: #334155;
+      font-size: 16px;
     }
     .mobile-specs-toggle {
       display: none;
@@ -662,11 +684,21 @@
       <button class="mobile-specs-toggle" onclick="toggleMobileSpecs()">ℹ️ Specs</button>
       <svg class="blueprint" id="blueprint-svg" viewBox="0 0 1000 650"></svg>
 
-      <!-- Zoom Toolbar -->
-      <div class="zoom-toolbar">
-        <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
-        <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">&minus;</button>
-        <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom" style="font-size: 15px;">&#8635;</button>
+      <!-- On-Screen Arrow Navigation Pad -->
+      <div class="nav-dpad-cluster">
+        <div class="dpad-grid">
+          <div></div>
+          <button class="dpad-key" onpointerdown="startFpNav('up')" onpointerup="stopFpNav()" onpointerleave="stopFpNav()" title="Pan Up">▲</button>
+          <button class="dpad-key zoom-key" onclick="zoomIn()" title="Zoom In">+</button>
+
+          <button class="dpad-key" onpointerdown="startFpNav('left')" onpointerup="stopFpNav()" onpointerleave="stopFpNav()" title="Pan Left">◀</button>
+          <button class="dpad-key reset-key" onclick="resetZoom()" title="Reset View">&#8635;</button>
+          <button class="dpad-key" onpointerdown="startFpNav('right')" onpointerup="stopFpNav()" onpointerleave="stopFpNav()" title="Pan Right">▶</button>
+
+          <div></div>
+          <button class="dpad-key" onpointerdown="startFpNav('down')" onpointerup="stopFpNav()" onpointerleave="stopFpNav()" title="Pan Down">▼</button>
+          <button class="dpad-key zoom-key" onclick="zoomOut()" title="Zoom Out">&minus;</button>
+        </div>
       </div>
 
       <div class="legend-card">
@@ -1623,6 +1655,47 @@
       pointY = 0;
       updateTransform();
     }
+
+    // Directional Arrow Navigation Engine
+    let fpNavInterval = null;
+    function panBlueprint(dx, dy) {
+      pointX += dx;
+      pointY += dy;
+      updateTransform();
+    }
+
+    function doFpNav(dir) {
+      const step = 32;
+      if (dir === 'up') panBlueprint(0, step);
+      else if (dir === 'down') panBlueprint(0, -step);
+      else if (dir === 'left') panBlueprint(step, 0);
+      else if (dir === 'right') panBlueprint(-step, 0);
+    }
+
+    function startFpNav(dir) {
+      doFpNav(dir);
+      stopFpNav();
+      fpNavInterval = setInterval(() => doFpNav(dir), 35);
+    }
+
+    function stopFpNav() {
+      if (fpNavInterval) {
+        clearInterval(fpNavInterval);
+        fpNavInterval = null;
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', '+', '-', '='].includes(e.key)) {
+        e.preventDefault();
+        if (e.key === 'ArrowUp') doFpNav('up');
+        else if (e.key === 'ArrowDown') doFpNav('down');
+        else if (e.key === 'ArrowLeft') doFpNav('left');
+        else if (e.key === 'ArrowRight') doFpNav('right');
+        else if (e.key === '+' || e.key === '=') zoomIn();
+        else if (e.key === '-') zoomOut();
+      }
+    });
 
     // Touch Pinch & Pan Gestures (Mobile)
     viewportEl.addEventListener('touchstart', (e) => {

@@ -278,7 +278,9 @@
     body.cinema-mode #header-panel,
     body.cinema-mode #controls-panel,
     body.cinema-mode #legend-panel,
-    body.cinema-mode #hint-bar {
+    body.cinema-mode #hint-bar,
+    body.cinema-mode #mobile-nav-dock,
+    body.cinema-mode #mobile-arrow-pad {
       opacity: 0;
       pointer-events: none;
       transform: translateY(-15px);
@@ -575,41 +577,92 @@
         text-align: center;
       }
 
-      /* Mobile Walk Virtual D-Pad Controller */
-      #mobile-walk-controls {
+      /* On-Screen Arrow Navigation Pad */
+      #mobile-arrow-pad {
         position: absolute;
-        bottom: 24px;
-        left: 20px;
-        display: none;
+        bottom: 66px;
+        right: 12px;
+        z-index: 38;
+        background: rgba(15, 23, 42, 0.90);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 18px;
+        padding: 6px;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+        display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 6px;
-        z-index: 45;
+        gap: 5px;
         user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+        pointer-events: auto;
       }
-      .dpad-row {
+      .arrow-mode-toggle {
         display: flex;
-        gap: 6px;
+        width: 100%;
+        background: #0f172a;
+        border-radius: 10px;
+        padding: 2px;
+        gap: 2px;
       }
-      .dpad-btn {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: rgba(18, 24, 38, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        font-size: 20px;
+      .arrow-mode-btn {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 0;
+        border-radius: 8px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.15s;
+      }
+      .arrow-mode-btn.active {
+        background: #0284c7;
+        color: #fff;
+      }
+      .dpad-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 42px);
+        grid-template-rows: repeat(3, 42px);
+        gap: 4px;
+        align-items: center;
+        justify-items: center;
+      }
+      .dpad-key {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: #1e293b;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #f8fafc;
+        font-size: 17px;
         font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: center;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        cursor: pointer;
+        user-select: none;
         touch-action: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: background 0.1s, transform 0.1s;
       }
-      .dpad-btn:active {
+      .dpad-key:active {
         background: #0284c7;
-        transform: scale(0.92);
+        color: #fff;
+        transform: scale(0.91);
+        border-color: #38bdf8;
+      }
+      .zoom-key {
+        background: #0369a1;
+        font-size: 20px;
+      }
+      .reset-key {
+        background: #334155;
+        font-size: 16px;
       }
       #exit-walk-btn {
         position: absolute;
@@ -635,7 +688,8 @@
     body.clean-view #controls-panel,
     body.clean-view #legend-panel,
     body.clean-view #hint-bar,
-    body.clean-view #mobile-nav-dock {
+    body.clean-view #mobile-nav-dock,
+    body.clean-view #mobile-arrow-pad {
       opacity: 0 !important;
       pointer-events: none !important;
       transform: translateY(20px);
@@ -695,14 +749,27 @@
     <div class="dock-chip" onclick="setMobileView('pedestrian', this)" style="background: #0284c7;">🚶 Walk Mode</div>
   </div>
 
-  <!-- Mobile Walk Controls (Virtual Touch Controller) -->
+  <!-- Exit Walk Mode Button -->
   <button id="exit-walk-btn" onclick="exitWalkMode()">✕ Exit Walk Mode</button>
-  <div id="mobile-walk-controls">
-    <button class="dpad-btn" id="dpad-up" ontouchstart="walkDir.forward=true; event.preventDefault();" ontouchend="walkDir.forward=false">▲</button>
-    <div class="dpad-row">
-      <button class="dpad-btn" id="dpad-left" ontouchstart="walkDir.left=true; event.preventDefault();" ontouchend="walkDir.left=false">◀</button>
-      <button class="dpad-btn" id="dpad-down" ontouchstart="walkDir.backward=true; event.preventDefault();" ontouchend="walkDir.backward=false">▼</button>
-      <button class="dpad-btn" id="dpad-right" ontouchstart="walkDir.right=true; event.preventDefault();" ontouchend="walkDir.right=false">▶</button>
+
+  <!-- Mobile On-Screen Directional Arrow Controls -->
+  <div id="mobile-arrow-pad">
+    <div class="arrow-mode-toggle">
+      <button class="arrow-mode-btn active" id="btn-mode-orbit" onclick="setArrowMode('orbit')">Orbit</button>
+      <button class="arrow-mode-btn" id="btn-mode-pan" onclick="setArrowMode('pan')">Pan</button>
+    </div>
+    <div class="dpad-grid">
+      <div></div>
+      <button class="dpad-key" onpointerdown="start3DNav('up')" onpointerup="stop3DNav()" onpointerleave="stop3DNav()" title="Up (Tilt / Forward)">▲</button>
+      <button class="dpad-key zoom-key" onpointerdown="start3DNav('in')" onpointerup="stop3DNav()" onpointerleave="stop3DNav()" title="Zoom In">+</button>
+
+      <button class="dpad-key" onpointerdown="start3DNav('left')" onpointerup="stop3DNav()" onpointerleave="stop3DNav()" title="Left (Turn / Pan Left)">◀</button>
+      <button class="dpad-key reset-key" onclick="setMobileView('perspective')" title="Reset Overview">&#8635;</button>
+      <button class="dpad-key" onpointerdown="start3DNav('right')" onpointerup="stop3DNav()" onpointerleave="stop3DNav()" title="Right (Turn / Pan Right)">▶</button>
+
+      <div></div>
+      <button class="dpad-key" onpointerdown="start3DNav('down')" onpointerup="stop3DNav()" onpointerleave="stop3DNav()" title="Down (Tilt / Backward)">▼</button>
+      <button class="dpad-key zoom-key" onpointerdown="start3DNav('out')" onpointerup="stop3DNav()" onpointerleave="stop3DNav()" title="Zoom Out">&minus;</button>
     </div>
   </div>
 
@@ -1832,10 +1899,8 @@
     window.exitWalkMode = function() {
       isWalkMode = false;
       window.walkDir = { forward: false, backward: false, left: false, right: false };
-      const walkCtrl = document.getElementById('mobile-walk-controls');
       const exitBtn = document.getElementById('exit-walk-btn');
       const dock = document.getElementById('mobile-nav-dock');
-      if (walkCtrl) walkCtrl.style.display = 'none';
       if (exitBtn) exitBtn.style.display = 'none';
       if (dock) dock.style.display = 'flex';
 
@@ -1843,6 +1908,125 @@
       controls.minDistance = 10;
       controls.maxDistance = 500;
     };
+
+    // -------------------------------------------------------------
+    // ON-SCREEN DIRECTIONAL ARROW NAVIGATION ENGINE
+    // -------------------------------------------------------------
+    let nav3DInterval = null;
+    let currentArrowMode = 'orbit'; // 'orbit' or 'pan'
+
+    window.setArrowMode = function(mode) {
+      currentArrowMode = mode;
+      document.getElementById('btn-mode-orbit').classList.toggle('active', mode === 'orbit');
+      document.getElementById('btn-mode-pan').classList.toggle('active', mode === 'pan');
+    };
+
+    function do3DNav(dir) {
+      if (isWalkMode) {
+        const moveSpeed = 0.65;
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        forward.y = 0;
+        forward.normalize();
+        const side = new THREE.Vector3(-forward.z, 0, forward.x);
+
+        if (dir === 'up') {
+          camera.position.addScaledVector(forward, moveSpeed);
+          controls.target.addScaledVector(forward, moveSpeed);
+        } else if (dir === 'down') {
+          camera.position.addScaledVector(forward, -moveSpeed);
+          controls.target.addScaledVector(forward, -moveSpeed);
+        } else if (dir === 'left') {
+          camera.position.addScaledVector(side, -moveSpeed);
+          controls.target.addScaledVector(side, -moveSpeed);
+        } else if (dir === 'right') {
+          camera.position.addScaledVector(side, moveSpeed);
+          controls.target.addScaledVector(side, moveSpeed);
+        }
+        camera.position.y = 2.2;
+        controls.target.y = 2.0;
+        controls.update();
+        return;
+      }
+
+      if (dir === 'in') {
+        const offset = camera.position.clone().sub(controls.target);
+        if (offset.length() > 15) {
+          offset.multiplyScalar(0.93);
+          camera.position.copy(controls.target).add(offset);
+          controls.update();
+        }
+      } else if (dir === 'out') {
+        const offset = camera.position.clone().sub(controls.target);
+        if (offset.length() < 550) {
+          offset.multiplyScalar(1.07);
+          camera.position.copy(controls.target).add(offset);
+          controls.update();
+        }
+      } else if (currentArrowMode === 'orbit') {
+        const offset = camera.position.clone().sub(controls.target);
+        let r = offset.length();
+        let theta = Math.atan2(offset.x, offset.z);
+        let phi = Math.acos(Math.max(-1, Math.min(1, offset.y / r)));
+
+        const angleStep = 0.045;
+        const phiStep = 0.035;
+
+        if (dir === 'left') theta += angleStep;
+        else if (dir === 'right') theta -= angleStep;
+        else if (dir === 'up') phi = Math.max(0.12, phi - phiStep);
+        else if (dir === 'down') phi = Math.min(Math.PI / 2.05, phi + phiStep);
+
+        offset.x = r * Math.sin(phi) * Math.sin(theta);
+        offset.y = r * Math.cos(phi);
+        offset.z = r * Math.sin(phi) * Math.cos(theta);
+
+        camera.position.copy(controls.target).add(offset);
+        controls.update();
+      } else if (currentArrowMode === 'pan') {
+        const panStep = 4.5;
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        forward.y = 0;
+        forward.normalize();
+        const side = new THREE.Vector3(-forward.z, 0, forward.x);
+
+        const move = new THREE.Vector3();
+        if (dir === 'up') move.addScaledVector(forward, panStep);
+        else if (dir === 'down') move.addScaledVector(forward, -panStep);
+        else if (dir === 'left') move.addScaledVector(side, -panStep);
+        else if (dir === 'right') move.addScaledVector(side, panStep);
+
+        camera.position.add(move);
+        controls.target.add(move);
+        controls.update();
+      }
+    }
+
+    window.start3DNav = function(dir) {
+      do3DNav(dir);
+      stop3DNav();
+      nav3DInterval = setInterval(() => do3DNav(dir), 35);
+    };
+
+    window.stop3DNav = function() {
+      if (nav3DInterval) {
+        clearInterval(nav3DInterval);
+        nav3DInterval = null;
+      }
+    };
+
+    window.addEventListener('keydown', (e) => {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', '+', '-', '='].includes(e.key)) {
+        e.preventDefault();
+        if (e.key === 'ArrowUp') do3DNav('up');
+        else if (e.key === 'ArrowDown') do3DNav('down');
+        else if (e.key === 'ArrowLeft') do3DNav('left');
+        else if (e.key === 'ArrowRight') do3DNav('right');
+        else if (e.key === '+' || e.key === '=') do3DNav('in');
+        else if (e.key === '-') do3DNav('out');
+      }
+    });
 
     // Camera Presets
     window.setCameraView = function(view) {
