@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4.5-Acre School Campus — Complete Architectural Floor Plans Dossier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A3 landscape;
+      margin: 8mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      background: #090d16;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    .sheet {
+      width: 404mm;
+      height: 281mm;
+      margin: 0 auto 12mm;
+      background: #0b1120;
+      border: 2px solid #334155;
+      padding: 8mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* COVER SHEET STYLING */
+    .cover-sheet {
+      background: #070b14 radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 60%);
+      border: 3px solid #38bdf8;
+    }
+    .cover-inner {
+      height: 100%;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 16mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .cover-title {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+      margin-top: 6mm;
+      line-height: 1.1;
+    }
+    .cover-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 3mm;
+      max-width: 320mm;
+      line-height: 1.4;
+    }
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 8mm 0;
+    }
+    .cover-stat {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid #334155;
+      padding: 14px 18px;
+      border-radius: 8px;
+    }
+    .c-val {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .c-lbl {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+    .cover-index {
+      flex: 1;
+      overflow: hidden;
+      margin: 4mm 0;
+    }
+    .cover-index-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #f8fafc;
+      margin-bottom: 3mm;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 2mm;
+    }
+    .index-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .index-table th {
+      text-align: left;
+      padding: 6px 10px;
+      background: #1e293b;
+      color: #38bdf8;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .index-table td {
+      padding: 5px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .sheet-code {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #334155;
+      padding-top: 4mm;
+      font-size: 10.5px;
+      color: #64748b;
+    }
+
+    /* BLUEPRINT SHEET STYLING */
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 4mm;
+      margin-bottom: 4mm;
+    }
+    .header-left .proj-name {
+      font-size: 10.5px;
+      font-family: 'Space Mono', monospace;
+      color: #94a3b8;
+      letter-spacing: 1px;
+    }
+    .header-left .building-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      margin-top: 1mm;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .sheet-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .sheet-number-box {
+      background: #0284c7;
+      color: #ffffff;
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+
+    .sheet-body {
+      display: flex;
+      flex: 1;
+      gap: 8mm;
+      overflow: hidden;
+    }
+
+    .blueprint-canvas-container {
+      flex: 1;
+      background: #070d18;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4mm;
+    }
+    .cad-grid-lines {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+    .blueprint-svg {
+      width: 100%;
+      height: 100%;
+      max-height: 200mm;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.7));
+    }
+
+    /* SVG CAD Styling */
+    .wall-thick { stroke: #f8fafc; stroke-width: 4; fill: none; }
+    .wall-interior { stroke: #94a3b8; stroke-width: 2; fill: none; }
+    .door { stroke: #38bdf8; stroke-width: 1.5; fill: none; }
+    .dimension-line { stroke: #38bdf8; stroke-width: 1; stroke-dasharray: 4,4; }
+    .dimension-text { fill: #38bdf8; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; text-anchor: middle; }
+    .room-zone { stroke-width: 1; opacity: 0.85; }
+    .room-label { font-size: 11px; font-weight: 700; fill: #ffffff; text-anchor: middle; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .room-dim { font-size: 9.5px; fill: #cbd5e1; text-anchor: middle; font-family: 'Space Mono', monospace; }
+
+    /* SIDEBAR DATA BOXES */
+    .sheet-sidebar {
+      width: 78mm;
+      display: flex;
+      flex-direction: column;
+      gap: 3mm;
+    }
+    .sidebar-box {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+    .side-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 3px;
+    }
+    .side-stat {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      padding: 2.5px 0;
+      color: #94a3b8;
+    }
+    .side-stat strong {
+      color: #f8fafc;
+      font-weight: 600;
+    }
+    .side-notes {
+      font-size: 9.5px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+    .legend-box .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9.5px;
+      padding: 2px 0;
+      color: #e2e8f0;
+    }
+    .leg-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .title-block-mini {
+      background: #0284c7;
+      color: #ffffff;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 9.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .tb-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sheet-footer {
+      border-top: 1px solid #1e293b;
+      padding-top: 2.5mm;
+      margin-top: 3mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-family: 'Space Mono', monospace;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="sheet cover-sheet">
+    <div class="cover-inner">
+      <div class="cover-badge">ARCHITECTURAL DESIGN DOSSIER • LEVEL 2D CAD BLUEPRINTS</div>
+      <h1 class="cover-title">4.5-ACRE INSTITUTIONAL CAMPUS</h1>
+      <h2 class="cover-subtitle">GIRLS CONSOLIDATED ACADEMIC (+1/+2) & HOSTEL ENCLAVE, GENERAL CBSE SCHOOL, KINDERGARTEN & SPORTS CENTROID</h2>
+
+      <div class="cover-stats-grid">
+        <div class="cover-stat">
+          <div class="c-val">4.50 Acres</div>
+          <div class="c-lbl">Site Land Area (18,211 m²)</div>
+        </div>
+        <div class="cover-stat">
+          <div class="c-val">4,475</div>
+          <div class="c-lbl">Peak Occupant Load (IBC Table 1004.5)</div>
+        </div>
+        <div class="cover-stat">
+          <div class="c-val">960 Students</div>
+          <div class="c-lbl">Girls Senior Wing (+1 & +2: 16 CR × 60)</div>
+        </div>
+        <div class="cover-stat">
+          <div class="c-val">3 Gates</div>
+          <div class="c-lbl">Strictly Segregated Circulation Gates</div>
+        </div>
+      </div>
+
+      <div class="cover-index">
+        <div class="cover-index-title">DRAWING SHEET INDEX</div>
+        <table class="index-table">
+          <thead>
+            <tr><th>Sheet No.</th><th>Drawing Title</th><th>Building Wing</th><th>Target Occupancy</th></tr>
+          </thead>
+          <tbody>
+
+    <tr>
+      <td class="sheet-code">A-101</td>
+      <td><strong>Girls Consolidated Academic Complex</strong> — Ground Floor (Day School 8th & Admin)</td>
+      <td>Ground Floor</td>
+      <td>320 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-102</td>
+      <td><strong>Girls Consolidated Academic Complex</strong> — Level 1: First Floor (Secondary Grades 9 & 10 + Library)</td>
+      <td>Level 1 (First Floor)</td>
+      <td>380 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-103</td>
+      <td><strong>Girls Consolidated Academic Complex</strong> — Level 2: Second Floor (+1 Senior Secondary Wing: 8 CR x 60 = 480)</td>
+      <td>Level 2 (Second Floor: +1)</td>
+      <td>490 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-104</td>
+      <td><strong>Girls Consolidated Academic Complex</strong> — Level 3: Third Floor (+2 Senior Secondary Wing: 8 CR x 60 = 480)</td>
+      <td>Level 3 (Third Floor: +2)</td>
+      <td>490 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-105</td>
+      <td><strong>Girls Residential Hostel</strong> — Ground Floor: Central Dining Hall, Kitchen & Welfare</td>
+      <td>Ground Floor (Dining & Admin)</td>
+      <td>450 Persons (Dining Batch + Staff)</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-106</td>
+      <td><strong>Girls Residential Hostel</strong> — Floors 1 to 4: Typical Residential Floor (160 Boarders/Floor)</td>
+      <td>Floors 1-4 (Residential Quad Dorms)</td>
+      <td>170 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-107</td>
+      <td><strong>General CBSE School (Co-Ed)</strong> — Ground Floor: Administration, Primary 1 & 2</td>
+      <td>Ground Floor</td>
+      <td>240 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-108</td>
+      <td><strong>General CBSE School (Co-Ed)</strong> — Level 1: Grades 3-5 & Discovery STEM Labs</td>
+      <td>First Floor</td>
+      <td>280 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-109</td>
+      <td><strong>General CBSE School (Co-Ed)</strong> — Level 2: Middle School 6-8 & Composite Science</td>
+      <td>Second Floor</td>
+      <td>300 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-110</td>
+      <td><strong>General CBSE School (Co-Ed)</strong> — Level 3: Secondary Grades 9 & 10 + Activity Hall</td>
+      <td>Third Floor</td>
+      <td>300 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-111</td>
+      <td><strong>Kindergarten (KG) Block</strong> — Ground Floor: Pre-KG, LKG & Toddler Soft Yard</td>
+      <td>Ground Floor (Pre-KG & LKG)</td>
+      <td>140 Children</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-112</td>
+      <td><strong>Kindergarten (KG) Block</strong> — First Floor: UKG & Sensory Arena</td>
+      <td>First Floor (UKG & Sensory)</td>
+      <td>140 Children</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-113</td>
+      <td><strong>Central Sports & Aquatic Complex</strong> — Ground Floor: 25m Semi-Olympic Pool & Dual Segregated Lockers</td>
+      <td>Ground Floor (25m Pool & Dual Lockers)</td>
+      <td>220 Swimmers & Deck Users</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-114</td>
+      <td><strong>Central Sports & Aquatic Complex</strong> — First Floor: Indoor Gymnasium & Strength Fitness Center</td>
+      <td>First Floor (Gymnasium & Fitness)</td>
+      <td>160 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-115</td>
+      <td><strong>Central Administration & Security Gateway</strong> — Ground Floor: Security Command & Admissions Foyer</td>
+      <td>Ground Floor (Security & Admissions)</td>
+      <td>45 Persons</td>
+    </tr>
+  
+    <tr>
+      <td class="sheet-code">A-116</td>
+      <td><strong>Central Administration & Security Gateway</strong> — First Floor: Boardroom, IT Servers & HR</td>
+      <td>First Floor (Boardroom & Servers)</td>
+      <td>40 Persons</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cover-footer">
+        <div><strong>Project:</strong> 4.5-Acre Institutional School Campus</div>
+        <div><strong>Firm:</strong> Antigravity Architectural & Campus Planning Studio</div>
+        <div><strong>Code Compliance:</strong> IBC 2024 Chapter 10 / NFPA 101 / National Building Code</div>
+        <div><strong>Date:</strong> November 2026</div>
+      </div>
+    </div>
+  </div>
+
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GIRLS CONSOLIDATED ACADEMIC COMPLEX</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">GROUND FLOOR (DAY SCHOOL 8TH & ADMIN) BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-101</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <!-- Dimension Lines -->
+              <line x1="50" y1="50" x2="950" y2="50" class="dimension-line"/>
+              <text x="500" y="42" class="dimension-text">OVERALL BUILDING LENGTH: 50.0 METERS (164'-0")</text>
+              <line x1="965" y1="70" x2="965" y2="590" class="dimension-line"/>
+              <text x="985" y="330" class="dimension-text" transform="rotate(90, 985, 330)">WIDTH: 24.0 METERS (78'-8")</text>
+
+              <!-- Outer Structural Walls -->
+              <rect x="60" y="70" width="880" height="520" class="wall-thick"/>
+
+              <!-- Central Double-Loaded Corridor (3.0m wide) -->
+              <rect x="60" y="300" width="880" height="70" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="340" class="room-label" style="fill:#94a3b8;">CENTRAL MAIN CIRCULATION SPINE (3.0m / 10' CLEAR WIDTH)</text>
+
+              <!-- North Wing Rooms (Top) -->
+              <!-- Classrooms Grade 8A, 8B, 8C, 8D -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'Classroom 8A (Capacity: 45 students)')" onmouseout="hideTooltip()">
+                <rect x="60" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+                <text x="150" y="175" class="room-label">CLASSROOM 8-A</text>
+                <text x="150" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+                <text x="150" y="215" class="room-dim">[45 Seats • Dual Aisle]</text>
+              </g>
+
+              <g class="room-group" onmouseover="showTooltip(evt, 'Classroom 8B (Capacity: 45 students)')" onmouseout="hideTooltip()">
+                <rect x="240" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+                <text x="330" y="175" class="room-label">CLASSROOM 8-B</text>
+                <text x="330" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+                <text x="330" y="215" class="room-dim">[45 Seats]</text>
+              </g>
+
+              <g class="room-group" onmouseover="showTooltip(evt, 'Classroom 8C (Capacity: 45 students)')" onmouseout="hideTooltip()">
+                <rect x="420" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+                <text x="510" y="175" class="room-label">CLASSROOM 8-C</text>
+                <text x="510" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+                <text x="510" y="215" class="room-dim">[45 Seats]</text>
+              </g>
+
+              <g class="room-group" onmouseover="showTooltip(evt, 'Classroom 8D (Capacity: 45 students)')" onmouseout="hideTooltip()">
+                <rect x="600" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+                <text x="690" y="175" class="room-label">CLASSROOM 8-D</text>
+                <text x="690" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+                <text x="690" y="215" class="room-dim">[45 Seats]</text>
+              </g>
+
+              <!-- East Fire Stair Core & Washrooms -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'East Fire Exit Stair (2.0m wide) & Toilets')" onmouseout="hideTooltip()">
+                <rect x="780" y="70" width="160" height="130" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+                <text x="860" y="130" class="room-label">WASHROOMS</text>
+                <text x="860" y="150" class="room-dim">[7 WCs + Sinks]</text>
+
+                <rect x="780" y="200" width="160" height="100" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+                <text x="860" y="245" class="room-label">EAST STAIR 01</text>
+                <text x="860" y="265" class="room-dim">[2.0m Fire Exit]</text>
+              </g>
+
+              <!-- South Wing Rooms (Bottom) -->
+              <!-- West Fire Stair Core & Restrooms -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'West Fire Exit Stair (2.0m wide) & Restrooms')" onmouseout="hideTooltip()">
+                <rect x="60" y="370" width="140" height="110" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+                <text x="130" y="420" class="room-label">WEST STAIR 02</text>
+                <text x="130" y="440" class="room-dim">[2.0m Fire Exit]</text>
+
+                <rect x="60" y="480" width="140" height="110" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+                <text x="130" y="530" class="room-label">WASHROOMS</text>
+                <text x="130" y="550" class="room-dim">[7 WCs + Incin]</text>
+              </g>
+
+              <!-- Junior Science STEM Lab -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'Junior Science & Tinkering STEM Lab (1,150 SF)')" onmouseout="hideTooltip()">
+                <rect x="200" y="370" width="220" height="220" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+                <text x="310" y="475" class="room-label">JUNIOR STEM LAB</text>
+                <text x="310" y="495" class="room-dim">11.0m x 8.5m (1,150 SF)</text>
+                <text x="310" y="515" class="room-dim">[Island Workbenches]</text>
+              </g>
+
+              <!-- Main Entrance Atrium & Foyer -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'Double-Height Entrance Atrium & Security Lobby')" onmouseout="hideTooltip()">
+                <rect x="420" y="370" width="180" height="220" class="room-zone" style="fill:#475569; stroke:#cbd5e1;"/>
+                <text x="510" y="465" class="room-label">ENTRANCE FOYER</text>
+                <text x="510" y="485" class="room-dim">Double-Height Lobby</text>
+                <text x="510" y="505" class="room-dim">[Turnstiles & Reception]</text>
+                <rect x="460" y="570" width="100" height="20" class="room-zone" style="fill:#38bdf8;"/>
+                <text x="510" y="585" class="room-dim" style="fill:#0f172a; font-weight:bold;">CANOPY PORTICO</text>
+              </g>
+
+              <!-- Day School Admin & Sick Bay -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'Day School Administration & Headmistress Suite')" onmouseout="hideTooltip()">
+                <rect x="600" y="370" width="170" height="220" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+                <text x="685" y="465" class="room-label">ADMIN & FACULTY</text>
+                <text x="685" y="485" class="room-dim">8.5m x 8.5m</text>
+                <text x="685" y="505" class="room-dim">[Headmistress + Staff]</text>
+              </g>
+
+              <!-- Infirmary Sick Bay -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'Medical Infirmary (4 beds + Nurse)')" onmouseout="hideTooltip()">
+                <rect x="770" y="370" width="170" height="220" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+                <text x="855" y="465" class="room-label">INFIRMARY / SICK BAY</text>
+                <text x="855" y="485" class="room-dim">8.5m x 8.5m</text>
+                <text x="855" y="505" class="room-dim">[4 Beds + Nurse Post]</text>
+              </g>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>13,000 sq ft (Total: 52,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>320 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores (2.0m width)</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>14 WCs + Sensor Taps + Incinerator</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">Main arrival portico with double-height lobby, Day School administration, 4x Grade 8 Classrooms, Junior STEM Lab, Art & Music Studio, and Sick Bay.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-101</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GIRLS CONSOLIDATED ACADEMIC COMPLEX</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">LEVEL 1: FIRST FLOOR (SECONDARY GRADES 9 & 10 + LIBRARY) BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-102</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="60" y="70" width="880" height="520" class="wall-thick"/>
+              <rect x="60" y="300" width="880" height="70" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="340" class="room-label" style="fill:#94a3b8;">CORRIDOR SPINE (3.0m CLEAR WIDTH)</text>
+
+              <!-- Classrooms 9A, 9B, 9C -->
+              <rect x="60" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="150" y="185" class="room-label">CLASSROOM 9-A</text>
+              <text x="150" y="205" class="room-dim">[45 Seats]</text>
+
+              <rect x="240" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="330" y="185" class="room-label">CLASSROOM 9-B</text>
+              <text x="330" y="205" class="room-dim">[45 Seats]</text>
+
+              <rect x="420" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="510" y="185" class="room-label">CLASSROOM 9-C</text>
+              <text x="510" y="205" class="room-dim">[45 Seats]</text>
+
+              <!-- Computer IT Lab -->
+              <rect x="600" y="70" width="180" height="230" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+              <text x="690" y="175" class="room-label">COMPUTER LAB</text>
+              <text x="690" y="195" class="room-dim">60 Workstations</text>
+              <text x="690" y="215" class="room-dim">[Digital Testing]</text>
+
+              <!-- East Core -->
+              <rect x="780" y="70" width="160" height="130" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+              <text x="860" y="140" class="room-label">WASHROOMS (7)</text>
+              <rect x="780" y="200" width="160" height="100" class="room-zone" style="fill:#475569;"/>
+              <text x="860" y="255" class="room-label">EAST STAIR</text>
+
+              <!-- South Wing: Classrooms 10A, 10B, 10C & Central Library -->
+              <rect x="60" y="370" width="140" height="110" class="room-zone" style="fill:#475569;"/>
+              <text x="130" y="430" class="room-label">WEST STAIR</text>
+              <rect x="60" y="480" width="140" height="110" class="room-zone" style="fill:#be123c;"/>
+              <text x="130" y="540" class="room-label">WASHROOMS (7)</text>
+
+              <rect x="200" y="370" width="170" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="285" y="475" class="room-label">CLASSROOM 10-A</text>
+              <text x="285" y="495" class="room-dim">[45 Seats]</text>
+
+              <rect x="370" y="370" width="170" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="455" y="475" class="room-label">CLASSROOM 10-B</text>
+              <text x="455" y="495" class="room-dim">[45 Seats]</text>
+
+              <!-- Central Double-Height Library -->
+              <rect x="540" y="370" width="230" height="220" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+              <text x="655" y="465" class="room-label">CENTRAL LIBRARY (L1)</text>
+              <text x="655" y="485" class="room-dim">11.5m x 8.5m (1,250 SF)</text>
+              <text x="655" y="505" class="room-dim">[Reading Stacks & Media]</text>
+
+              <rect x="770" y="370" width="170" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="855" y="475" class="room-label">CLASSROOM 10-C</text>
+              <text x="855" y="495" class="room-dim">[45 Seats]</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>13,000 sq ft (Total: 52,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>380 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores (2.0m width)</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>14 WCs + Sanitary Incinerator</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">6 Classrooms for Grades 9 & 10 (3 sections each), 60-seat Computer IT Lab, Double-height Central Library lower floor, Counselor Suite, and Staff Room.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-102</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GIRLS CONSOLIDATED ACADEMIC COMPLEX</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">LEVEL 2: SECOND FLOOR (+1 SENIOR SECONDARY WING: 8 CR X 60 = 480) BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-103</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="60" y="70" width="880" height="520" class="wall-thick"/>
+              <rect x="60" y="300" width="880" height="70" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="340" class="room-label" style="fill:#94a3b8;">SENIOR ACADEMIC CORRIDOR (3.0m CLEAR WIDTH)</text>
+
+              <!-- Senior Classrooms 11A, 11B, 11C, 11D (60 capacity each) -->
+              <rect x="60" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="150" y="175" class="room-label">+1 SECTION A</text>
+              <text x="150" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+              <text x="150" y="215" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="240" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="330" y="175" class="room-label">+1 SECTION B</text>
+              <text x="330" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+              <text x="330" y="215" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="420" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="510" y="175" class="room-label">+1 SECTION C</text>
+              <text x="510" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+              <text x="510" y="215" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="600" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="690" y="175" class="room-label">+1 SECTION D</text>
+              <text x="690" y="195" class="room-dim">9.1m x 8.5m (840 SF)</text>
+              <text x="690" y="215" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="780" y="70" width="160" height="130" class="room-zone" style="fill:#be123c;"/>
+              <text x="860" y="140" class="room-label">WASHROOMS (7)</text>
+              <rect x="780" y="200" width="160" height="100" class="room-zone" style="fill:#475569;"/>
+              <text x="860" y="255" class="room-label">EAST STAIR</text>
+
+              <!-- South Wing: Classrooms 11E, 11F, Physics Lab & Chemistry Lab -->
+              <rect x="60" y="370" width="140" height="110" class="room-zone" style="fill:#475569;"/>
+              <text x="130" y="430" class="room-label">WEST STAIR</text>
+              <rect x="60" y="480" width="140" height="110" class="room-zone" style="fill:#be123c;"/>
+              <text x="130" y="540" class="room-label">WASHROOMS (7)</text>
+
+              <rect x="200" y="370" width="180" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="290" y="475" class="room-label">+1 SECTION E</text>
+              <text x="290" y="495" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="380" y="370" width="180" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="470" y="475" class="room-label">+1 SECTION F</text>
+              <text x="470" y="495" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <!-- Advanced Physics Lab -->
+              <rect x="560" y="370" width="190" height="220" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+              <text x="655" y="465" class="room-label">ADVANCED PHYSICS LAB</text>
+              <text x="655" y="485" class="room-dim">10m x 8.5m (1,150 SF)</text>
+              <text x="655" y="505" class="room-dim">[Optics & Darkroom Suite]</text>
+
+              <!-- Advanced Chemistry Lab -->
+              <rect x="750" y="370" width="190" height="220" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+              <text x="845" y="465" class="room-label">ADVANCED CHEMISTRY LAB</text>
+              <text x="845" y="485" class="room-dim">10m x 8.5m (1,150 SF)</text>
+              <text x="845" y="505" class="room-dim">[Fume Hoods & Prep Area]</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>13,000 sq ft (Total: 52,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>490 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores (2.0m width)</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>14 WCs</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">8 Senior Secondary Classrooms (+1: 60 students per class), Advanced Physics & Chemistry Laboratories (1,200 sq ft each), Library Mezzanine quiet zone, and Senior Staffroom.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-103</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GIRLS CONSOLIDATED ACADEMIC COMPLEX</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">LEVEL 3: THIRD FLOOR (+2 SENIOR SECONDARY WING: 8 CR X 60 = 480) BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-104</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="60" y="70" width="880" height="520" class="wall-thick"/>
+              <rect x="60" y="300" width="880" height="70" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="340" class="room-label" style="fill:#94a3b8;">THIRD FLOOR CORRIDOR (3.0m CLEAR WIDTH)</text>
+
+              <!-- Senior Classrooms 12A, 12B, 12C, 12D -->
+              <rect x="60" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="150" y="175" class="room-label">+2 SECTION A</text>
+              <text x="150" y="205" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="240" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="330" y="175" class="room-label">+2 SECTION B</text>
+              <text x="330" y="205" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="420" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="510" y="175" class="room-label">+2 SECTION C</text>
+              <text x="510" y="205" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="600" y="70" width="180" height="230" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="690" y="175" class="room-label">+2 SECTION D</text>
+              <text x="690" y="205" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="780" y="70" width="160" height="130" class="room-zone" style="fill:#be123c;"/>
+              <text x="860" y="140" class="room-label">WASHROOMS (7)</text>
+              <rect x="780" y="200" width="160" height="100" class="room-zone" style="fill:#475569;"/>
+              <text x="860" y="255" class="room-label">EAST STAIR</text>
+
+              <!-- South Wing: Classrooms 12E, 12F & 300-seat Examination Hall -->
+              <rect x="60" y="370" width="140" height="110" class="room-zone" style="fill:#475569;"/>
+              <text x="130" y="430" class="room-label">WEST STAIR</text>
+              <rect x="60" y="480" width="140" height="110" class="room-zone" style="fill:#be123c;"/>
+              <text x="130" y="540" class="room-label">WASHROOMS (7)</text>
+
+              <rect x="200" y="370" width="180" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="290" y="475" class="room-label">+2 SECTION E</text>
+              <text x="290" y="495" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <rect x="380" y="370" width="180" height="220" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="470" y="475" class="room-label">+2 SECTION F</text>
+              <text x="470" y="495" class="room-dim" style="fill:#facc15; font-weight:bold;">[60 CAPACITY]</text>
+
+              <!-- 300-seat Examination & AV Lecture Hall -->
+              <rect x="560" y="370" width="380" height="220" class="room-zone" style="fill:#b45309; stroke:#f59e0b;"/>
+              <text x="750" y="465" class="room-label">EXAMINATION & AV LECTURE HALL</text>
+              <text x="750" y="485" class="room-dim">20.0m x 8.5m (2,100 SF)</text>
+              <text x="750" y="505" class="room-dim" style="fill:#facc15; font-weight:bold;">[300 SEAT CAPACITY • ACOUSTIC WALLS]</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>13,000 sq ft (Total: 52,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>490 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores (2.0m width)</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>14 WCs</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">8 Senior Secondary Classrooms (+2: 60 students per class), Advanced Biology & Biotech Lab, Robotics & AI Suite, and a 300-seat AV/Examination Lecture Hall.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-104</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GIRLS RESIDENTIAL HOSTEL</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">GROUND FLOOR: CENTRAL DINING HALL, KITCHEN & WELFARE BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-105</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="80" y="80" width="840" height="500" class="wall-thick"/>
+              
+              <!-- Central Open-Air Lightwell Courtyard (22m x 10m) -->
+              <rect x="300" y="240" width="400" height="180" class="room-zone" style="fill:#15803d; stroke:#4ade80; fill-opacity:0.35;"/>
+              <text x="500" y="325" class="room-label" style="fill:#86efac;">OPEN-AIR CENTRAL COURTYARD GARDEN</text>
+              <text x="500" y="345" class="room-dim">[Natural Ventilation • Reading Pergolas]</text>
+
+              <!-- North Wing: Central Dining Hall (400 Capacity) -->
+              <rect x="80" y="80" width="620" height="160" class="room-zone" style="fill:#b45309; stroke:#f59e0b;"/>
+              <text x="390" y="150" class="room-label">CENTRAL DINING HALL (400 CAPACITY)</text>
+              <text x="390" y="170" class="room-dim">26.0m x 8.0m (2,250 SF) • Dual Batch Seating</text>
+
+              <!-- Commercial Industrial Kitchen -->
+              <rect x="700" y="80" width="220" height="240" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="810" y="190" class="room-label">KITCHEN & PANTRY</text>
+              <text x="810" y="210" class="room-dim">Heavy Cooking • Cold Room</text>
+
+              <!-- South Wing: Infirmary, Warden & Reception -->
+              <rect x="80" y="420" width="220" height="160" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+              <text x="190" y="495" class="room-label">6-BED INFIRMARY</text>
+              <text x="190" y="515" class="room-dim">Nurse Station & Isolation</text>
+
+              <rect x="300" y="420" width="200" height="160" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="400" y="495" class="room-label">WARDEN SUITE (2-BHK)</text>
+              <text x="400" y="515" class="room-dim">Resident Head Quarters</text>
+
+              <rect x="500" y="420" width="200" height="160" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="600" y="495" class="room-label">VISITORS PARLOR</text>
+              <text x="600" y="515" class="room-dim">Controlled Parent Meeting</text>
+
+              <rect x="700" y="420" width="220" height="160" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="810" y="495" class="room-label">COMMERCIAL LAUNDRY</text>
+              <text x="810" y="515" class="room-dim">Washers & Linen Store</text>
+
+              <!-- Corridors wrapping Courtyard -->
+              <rect x="250" y="240" width="50" height="180" class="room-zone" style="fill:#334155;"/>
+              <rect x="700" y="320" width="220" height="100" class="room-zone" style="fill:#be123c;"/>
+              <text x="810" y="375" class="room-label">GROUND TOILETS (6)</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>11,000 sq ft (Total: 55,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>450 Persons (Dining Batch + Staff)</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Enclosed Pressurized Fire Stairs</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>12 WCs + Kitchen Locker Core</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">Central 400-seat Dining Hall, Commercial Semi-Industrial Kitchen, Dispensary with 6-bed Infirmary, Chief Warden 2-BHK suite, Visitors Reception Parlor, and Central Lightwell Courtyard Garden.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-105</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GIRLS RESIDENTIAL HOSTEL</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">FLOORS 1 TO 4: TYPICAL RESIDENTIAL FLOOR (160 BOARDERS/FLOOR) BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-106</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="80" y="80" width="840" height="500" class="wall-thick"/>
+              
+              <!-- Courtyard Void -->
+              <rect x="300" y="230" width="400" height="200" class="room-zone" style="fill:#0f172a; stroke:#64748b; stroke-dasharray:6,4;"/>
+              <text x="500" y="330" class="room-label" style="fill:#64748b;">OPEN-TO-SKY COURTYARD VOID (CROSS-VENTILATION)</text>
+
+              <!-- Perimeter Corridor (2.4m wide) -->
+              <rect x="240" y="190" width="520" height="40" class="room-zone" style="fill:#334155;"/>
+              <rect x="240" y="430" width="520" height="40" class="room-zone" style="fill:#334155;"/>
+              <rect x="240" y="190" width="60" height="280" class="room-zone" style="fill:#334155;"/>
+              <rect x="700" y="190" width="60" height="280" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="215" class="room-dim">2.4m WIDE PERIMETER BALCONY ACCESS CORRIDOR</text>
+
+              <!-- North Dormitory Row (10 rooms) -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'North Dormitory Row (4-Bed Rooms: 18ft x 14ft)')" onmouseout="hideTooltip()">
+                <rect x="80" y="80" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="160" y="135" class="room-label">DORM 101-102</text>
+                <text x="160" y="155" class="room-dim">[4 Beds each]</text>
+
+                <rect x="240" y="80" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="320" y="135" class="room-label">DORM 103-104</text>
+                <text x="320" y="155" class="room-dim">[4 Beds each]</text>
+
+                <rect x="400" y="80" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="480" y="135" class="room-label">DORM 105-106</text>
+                <text x="480" y="155" class="room-dim">[4 Beds each]</text>
+
+                <rect x="560" y="80" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="640" y="135" class="room-label">DORM 107-108</text>
+                <text x="640" y="155" class="room-dim">[4 Beds each]</text>
+
+                <!-- East Bath Core -->
+                <rect x="720" y="80" width="200" height="150" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+                <text x="820" y="145" class="room-label">EAST BATH CORE</text>
+                <text x="820" y="165" class="room-dim">[5 Showers • 5 WCs • 6 Sinks]</text>
+              </g>
+
+              <!-- South Dormitory Row -->
+              <g class="room-group" onmouseover="showTooltip(evt, 'South Dormitory Row (Balcony Facing)')" onmouseout="hideTooltip()">
+                <rect x="80" y="470" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="160" y="525" class="room-label">DORM 109-110</text>
+                <text x="160" y="545" class="room-dim">[4 Beds each]</text>
+
+                <rect x="240" y="470" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="320" y="525" class="room-label">DORM 111-112</text>
+                <text x="320" y="545" class="room-dim">[4 Beds each]</text>
+
+                <!-- Air-Conditioned Quiet Study Lounge -->
+                <rect x="400" y="470" width="200" height="110" class="room-zone" style="fill:#0369a1; stroke:#38bdf8;"/>
+                <text x="500" y="520" class="room-label">AC STUDY LOUNGE</text>
+                <text x="500" y="540" class="room-dim">Quiet Study Desks & Wi-Fi</text>
+
+                <rect x="600" y="470" width="160" height="110" class="room-zone" style="fill:#6d28d9; stroke:#a855f7;"/>
+                <text x="680" y="525" class="room-label">DORM 113-114</text>
+                <text x="680" y="545" class="room-dim">[4 Beds each]</text>
+
+                <!-- West Bath Core -->
+                <rect x="760" y="430" width="160" height="150" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+                <text x="840" y="500" class="room-label">WEST BATH CORE</text>
+                <text x="840" y="520" class="room-dim">[5 Showers • 5 WCs]</text>
+              </g>
+
+              <!-- Resident Tutor Room -->
+              <rect x="80" y="270" width="160" height="120" class="room-zone" style="fill:#475569;"/>
+              <text x="160" y="330" class="room-label">RESIDENT TUTOR</text>
+              <text x="160" y="350" class="room-dim">Faculty Supervision</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>11,000 sq ft (Total: 55,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>170 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Enclosed Stairs</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>10 Showers + 10 WCs + 12 Sinks</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">40 Quad-sharing dorm rooms per floor surrounding the open lightwell courtyard, double centralized sanitary cores, quiet study lounge, and pantry.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-106</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GENERAL CBSE SCHOOL (CO-ED)</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">GROUND FLOOR: ADMINISTRATION, PRIMARY 1 & 2 BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-107</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="80" y="80" width="840" height="480" class="wall-thick"/>
+              <rect x="80" y="280" width="840" height="80" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="325" class="room-label" style="fill:#94a3b8;">CBSE ACADEMIC CORRIDOR (3.0m CLEAR)</text>
+
+              <!-- North Rooms: Classrooms 1A, 1B, 2A, 2B -->
+              <rect x="80" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="170" y="175" class="room-label">CLASSROOM 1-A</text>
+              <text x="170" y="195" class="room-dim">[40 Seats]</text>
+
+              <rect x="260" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="350" y="175" class="room-label">CLASSROOM 1-B</text>
+              <text x="350" y="195" class="room-dim">[40 Seats]</text>
+
+              <rect x="440" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="530" y="175" class="room-label">CLASSROOM 2-A</text>
+              <text x="530" y="195" class="room-dim">[40 Seats]</text>
+
+              <rect x="620" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7; stroke:#38bdf8;"/>
+              <text x="710" y="175" class="room-label">CLASSROOM 2-B</text>
+              <text x="710" y="195" class="room-dim">[40 Seats]</text>
+
+              <!-- Girls Toilets East -->
+              <rect x="800" y="80" width="120" height="200" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+              <text x="860" y="175" class="room-label">GIRLS WC</text>
+              <text x="860" y="195" class="room-dim">[8 WCs]</text>
+
+              <!-- South Rooms: Principal, Admin, Activity & Boys WC -->
+              <rect x="80" y="360" width="180" height="200" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="170" y="455" class="room-label">PRINCIPAL SUITE</text>
+              <text x="170" y="475" class="room-dim">Executive Office</text>
+
+              <rect x="260" y="360" width="220" height="200" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="370" y="455" class="room-label">ADMIN & ACCOUNTS</text>
+              <text x="370" y="475" class="room-dim">School Office & Records</text>
+
+              <rect x="480" y="360" width="200" height="200" class="room-zone" style="fill:#0d9488; stroke:#2dd4bf;"/>
+              <text x="580" y="455" class="room-label">JUNIOR ACTIVITY LAB</text>
+              <text x="580" y="475" class="room-dim">Arts & Crafts Studio</text>
+
+              <!-- Boys Toilets West -->
+              <rect x="680" y="360" width="140" height="200" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+              <text x="750" y="455" class="room-label">BOYS WC</text>
+              <text x="750" y="475" class="room-dim">[6 WC • 8 Urinals]</text>
+
+              <rect x="820" y="360" width="100" height="200" class="room-zone" style="fill:#475569;"/>
+              <text x="870" y="465" class="room-label">STAIR</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>9,500 sq ft (Total: 38,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>240 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Exit Cores</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Boys (6 WC, 8 Urinals) / Girls (8 WC)</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">School Principal, Admissions, Grade 1 & 2 classrooms (4 sections), sick bay, assembly lobby, and separate boy/girl restroom wings.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-107</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GENERAL CBSE SCHOOL (CO-ED)</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">LEVEL 1: GRADES 3-5 & DISCOVERY STEM LABS BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-108</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="80" y="80" width="840" height="480" class="wall-thick"/>
+              <rect x="80" y="280" width="840" height="80" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="325" class="room-label" style="fill:#94a3b8;">PRIMARY CORRIDOR</text>
+
+              <rect x="80" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="170" y="185" class="room-label">CLASS 3-A</text>
+              <rect x="260" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="350" y="185" class="room-label">CLASS 3-B</text>
+              <rect x="440" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="530" y="185" class="room-label">CLASS 4-A</text>
+              <rect x="620" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="710" y="185" class="room-label">CLASS 4-B</text>
+
+              <rect x="800" y="80" width="120" height="200" class="room-zone" style="fill:#be123c;"/>
+              <text x="860" y="185" class="room-label">GIRLS WC</text>
+
+              <!-- South Labs -->
+              <rect x="80" y="360" width="220" height="200" class="room-zone" style="fill:#0d9488;"/>
+              <text x="190" y="465" class="room-label">JUNIOR IT LAB</text>
+              <text x="190" y="485" class="room-dim">[40 Terminals]</text>
+
+              <rect x="300" y="360" width="220" height="200" class="room-zone" style="fill:#0d9488;"/>
+              <text x="410" y="465" class="room-label">MATH LAB</text>
+              <text x="410" y="485" class="room-dim">Discovery Models</text>
+
+              <rect x="520" y="360" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="610" y="465" class="room-label">CLASS 5-A</text>
+
+              <rect x="700" y="360" width="140" height="200" class="room-zone" style="fill:#be123c;"/>
+              <text x="770" y="465" class="room-label">BOYS WC</text>
+              <rect x="840" y="360" width="80" height="200" class="room-zone" style="fill:#475569;"/>
+              <text x="880" y="465" class="room-label">STAIR</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>9,500 sq ft (Total: 38,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>280 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Boys (6 WC, 8 Urinals) / Girls (8 WC)</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">6 Primary Classrooms (Grades 3, 4, 5), Junior Computer Science Lab (40 stations), Mathematics Discovery Lab, and Staffroom.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-108</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GENERAL CBSE SCHOOL (CO-ED)</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">LEVEL 2: MIDDLE SCHOOL 6-8 & COMPOSITE SCIENCE BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-109</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="80" y="80" width="840" height="480" class="wall-thick"/>
+              <rect x="80" y="280" width="840" height="80" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="325" class="room-label" style="fill:#94a3b8;">MIDDLE SCHOOL CORRIDOR</text>
+
+              <rect x="80" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="170" y="185" class="room-label">CLASS 6-A</text>
+              <rect x="260" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="350" y="185" class="room-label">CLASS 6-B</text>
+              <rect x="440" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="530" y="185" class="room-label">CLASS 7-A</text>
+              <rect x="620" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="710" y="185" class="room-label">CLASS 7-B</text>
+
+              <rect x="800" y="80" width="120" height="200" class="room-zone" style="fill:#be123c;"/>
+              <text x="860" y="185" class="room-label">GIRLS WC</text>
+
+              <!-- Composite Science & Library -->
+              <rect x="80" y="360" width="280" height="200" class="room-zone" style="fill:#0d9488;"/>
+              <text x="220" y="465" class="room-label">COMPOSITE SCIENCE LAB</text>
+              <text x="220" y="485" class="room-dim">Physics / Chem / Bio Workbenches</text>
+
+              <rect x="360" y="360" width="320" height="200" class="room-zone" style="fill:#0d9488;"/>
+              <text x="520" y="465" class="room-label">CENTRAL SCHOOL LIBRARY</text>
+              <text x="520" y="485" class="room-dim">Reading Stacks & Study Tables</text>
+
+              <rect x="680" y="360" width="140" height="200" class="room-zone" style="fill:#be123c;"/>
+              <text x="750" y="465" class="room-label">BOYS WC</text>
+              <rect x="820" y="360" width="100" height="200" class="room-zone" style="fill:#475569;"/>
+              <text x="870" y="465" class="room-label">STAIR</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>9,500 sq ft (Total: 38,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>300 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Boys / Girls Restroom Blocks</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">6 Middle School Classrooms, Composite Science Lab (Physics, Chemistry, Biology demonstration benches), and Central School Library.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-109</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">GENERAL CBSE SCHOOL (CO-ED)</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">LEVEL 3: SECONDARY GRADES 9 & 10 + ACTIVITY HALL BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-110</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="80" y="80" width="840" height="480" class="wall-thick"/>
+              <rect x="80" y="280" width="840" height="80" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="325" class="room-label" style="fill:#94a3b8;">SECONDARY WING CORRIDOR</text>
+
+              <rect x="80" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="170" y="185" class="room-label">CLASS 9-A</text>
+              <rect x="260" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="350" y="185" class="room-label">CLASS 9-B</text>
+              <rect x="440" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="530" y="185" class="room-label">CLASS 10-A</text>
+              <rect x="620" y="80" width="180" height="200" class="room-zone" style="fill:#0284c7;"/>
+              <text x="710" y="185" class="room-label">CLASS 10-B</text>
+
+              <rect x="800" y="80" width="120" height="200" class="room-zone" style="fill:#be123c;"/>
+              <text x="860" y="185" class="room-label">GIRLS WC</text>
+
+              <!-- Multi-Purpose Hall & Senior Labs -->
+              <rect x="80" y="360" width="460" height="200" class="room-zone" style="fill:#b45309;"/>
+              <text x="310" y="465" class="room-label">MULTI-PURPOSE ACTIVITY HALL</text>
+              <text x="310" y="485" class="room-dim">[Yoga • Table Tennis • Debates • 250 Cap]</text>
+
+              <rect x="540" y="360" width="220" height="200" class="room-zone" style="fill:#0d9488;"/>
+              <text x="650" y="465" class="room-label">SENIOR IT LAB</text>
+              <text x="650" y="485" class="room-dim">High-Spec Terminals</text>
+
+              <rect x="760" y="360" width="80" height="200" class="room-zone" style="fill:#be123c;"/>
+              <text x="800" y="465" class="room-label">BOYS WC</text>
+              <rect x="840" y="360" width="80" height="200" class="room-zone" style="fill:#475569;"/>
+              <text x="880" y="465" class="room-label">STAIR</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>9,500 sq ft (Total: 38,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>300 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Fire Cores</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Boys / Girls Restroom Blocks</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">4 Classrooms (Grades 9 & 10), Senior IT Multimedia Lab, Social Science Lab, and Multi-purpose Activity Hall.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-110</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">KINDERGARTEN (KG) BLOCK</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">GROUND FLOOR: PRE-KG, LKG & TODDLER SOFT YARD BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-111</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="100" y="100" width="800" height="440" class="wall-thick"/>
+              <rect x="100" y="280" width="800" height="80" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="325" class="room-label" style="fill:#94a3b8;">TODDLER SAFE CENTRAL CORRIDOR</text>
+
+              <!-- Pre-KG 1 & 2 -->
+              <rect x="100" y="100" width="240" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="220" y="190" class="room-label">PRE-KG ROOM 1</text>
+              <text x="220" y="210" class="room-dim">Child-Height Sinks Attached</text>
+
+              <rect x="340" y="100" width="240" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="460" y="190" class="room-label">PRE-KG ROOM 2</text>
+              <text x="460" y="210" class="room-dim">Storytelling Nook</text>
+
+              <!-- Child-Friendly Toilets -->
+              <rect x="580" y="100" width="160" height="180" class="room-zone" style="fill:#be123c;"/>
+              <text x="660" y="190" class="room-label">TODDLER WC</text>
+              <text x="660" y="210" class="room-dim">Low-Height Fixtures</text>
+
+              <rect x="740" y="100" width="160" height="180" class="room-zone" style="fill:#475569;"/>
+              <text x="820" y="190" class="room-label">SAFE RAMP</text>
+              <text x="820" y="210" class="room-dim">1:12 Gentle Slope</text>
+
+              <!-- South Rooms: LKG Rooms & Day Nap Room -->
+              <rect x="100" y="360" width="240" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="220" y="450" class="room-label">LKG ROOM 1</text>
+              <text x="220" y="470" class="room-dim">Direct Yard Exit</text>
+
+              <rect x="340" y="360" width="240" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="460" y="450" class="room-label">LKG ROOM 2</text>
+              <text x="460" y="470" class="room-dim">Direct Yard Exit</text>
+
+              <rect x="580" y="360" width="320" height="180" class="room-zone" style="fill:#0d9488;"/>
+              <text x="740" y="450" class="room-label">DAY NAP & QUIET REST ROOM</text>
+              <text x="740" y="470" class="room-dim">Low Padded Cots & Caregiver Desk</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>4,800 sq ft (Total: 9,600 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>140 Children</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>1 Low-Riser Stair + 1 Ramp (1:12 slope)</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Child-Height Toilets & Low Basins</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">Direct covered portico from Gate 1, 4 themed play/learning suites with low child-height sinks, Day Nap Room with low cots, and direct exit doors into the fenced rubber play yard.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-111</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">KINDERGARTEN (KG) BLOCK</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">FIRST FLOOR: UKG & SENSORY ARENA BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-112</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="100" y="100" width="800" height="440" class="wall-thick"/>
+              <rect x="100" y="280" width="800" height="80" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="325" class="room-label" style="fill:#94a3b8;">FIRST FLOOR PLAY CORRIDOR</text>
+
+              <rect x="100" y="100" width="200" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="200" y="190" class="room-label">UKG ROOM 1</text>
+              <rect x="300" y="100" width="200" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="400" y="190" class="room-label">UKG ROOM 2</text>
+              <rect x="500" y="100" width="200" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="600" y="190" class="room-label">UKG ROOM 3</text>
+              <rect x="700" y="100" width="200" height="180" class="room-zone" style="fill:#be123c;"/>
+              <text x="800" y="190" class="room-label">TOILETS</text>
+
+              <rect x="100" y="360" width="200" height="180" class="room-zone" style="fill:#0284c7;"/>
+              <text x="200" y="450" class="room-label">UKG ROOM 4</text>
+              <rect x="300" y="360" width="300" height="180" class="room-zone" style="fill:#0d9488;"/>
+              <text x="450" y="450" class="room-label">MONTESSORI SENSORY ROOM</text>
+              <rect x="600" y="360" width="300" height="180" class="room-zone" style="fill:#15803d;"/>
+              <text x="750" y="450" class="room-label">INDOOR SOFT BALL-POOL ARENA</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>4,800 sq ft (Total: 9,600 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>140 Children</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>1 Stair + Ramp</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Child Toilets</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">4 UKG learning rooms, Montessori sensory discovery suite, indoor soft ball-pool arena, and teachers' prep room.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-112</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">CENTRAL SPORTS & AQUATIC COMPLEX</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">GROUND FLOOR: 25M SEMI-OLYMPIC POOL & DUAL SEGREGATED LOCKERS BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-113</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="60" y="80" width="880" height="480" class="wall-thick"/>
+
+              <!-- West Wing: Girls Enclave Secure Locker Airlock -->
+              <rect x="60" y="80" width="200" height="480" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+              <text x="160" y="300" class="room-label">GIRLS ENCLAVE LOCKERS</text>
+              <text x="160" y="320" class="room-dim">[14 Showers • 12 WCs]</text>
+              <text x="160" y="340" class="room-dim" style="fill:#facc15; font-weight:bold;">SECURE AIRLOCK ENTRY</text>
+
+              <!-- Central 25m Semi-Olympic Pool -->
+              <rect x="280" y="110" width="440" height="240" class="room-zone" style="fill:#0284c7; stroke:#38bdf8; fill-opacity:0.4;"/>
+              <text x="500" y="210" class="room-label" style="fill:#38bdf8; font-size:14px;">25.0m x 12.5m SEMI-OLYMPIC POOL</text>
+              <text x="500" y="235" class="room-dim">6 Regulation Competition Lanes • Depth: 1.0m to 1.8m</text>
+              <text x="500" y="255" class="room-dim">[6x 3D Starting Blocks at Deep End]</text>
+
+              <!-- Pool Decks -->
+              <rect x="260" y="80" width="480" height="30" class="room-zone" style="fill:#334155;"/>
+              <rect x="260" y="350" width="480" height="60" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="385" class="room-dim">NON-SLIP RESIN PERIMETER POOL DECK</text>
+
+              <!-- Filtration & Lifeguard -->
+              <rect x="260" y="410" width="240" height="150" class="room-zone" style="fill:#475569;"/>
+              <text x="380" y="485" class="room-label">FILTRATION PLANT</text>
+              <rect x="500" y="410" width="240" height="150" class="room-zone" style="fill:#0d9488;"/>
+              <text x="620" y="485" class="room-label">LIFEGUARD & FIRST AID</text>
+
+              <!-- East Wing: General CBSE Locker Core -->
+              <rect x="740" y="80" width="200" height="480" class="room-zone" style="fill:#475569; stroke:#94a3b8;"/>
+              <text x="840" y="300" class="room-label">CBSE BOYS/GIRLS LOCKERS</text>
+              <text x="840" y="320" class="room-dim">[12 Showers • 10 WCs]</text>
+              <text x="840" y="340" class="room-dim">General School Entry</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>8,000 sq ft (Total: 16,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>220 Swimmers & Deck Users</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Staircases</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Dual Lockers (12 Showers CBSE / 14 Showers Girls)</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">Semi-Olympic 25m x 12.5m pool basin with 6 lanes and starting blocks, West secure airlock locker wing for Girls Enclave, East locker wing for General CBSE, and filtration plant.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-113</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">CENTRAL SPORTS & AQUATIC COMPLEX</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">FIRST FLOOR: INDOOR GYMNASIUM & STRENGTH FITNESS CENTER BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-114</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="60" y="80" width="880" height="480" class="wall-thick"/>
+
+              <!-- Hardwood Gymnasium -->
+              <rect x="60" y="80" width="540" height="480" class="room-zone" style="fill:#15803d; stroke:#4ade80;"/>
+              <text x="330" y="300" class="room-label" style="font-size:14px;">INDOOR HARDWOOD GYMNASIUM (BARREL ROOF)</text>
+              <text x="330" y="325" class="room-dim">Marked for 2 Badminton Courts / Basketball / Gymnastics Mats</text>
+
+              <!-- Fitness & Strength Center -->
+              <rect x="600" y="80" width="340" height="240" class="room-zone" style="fill:#0d9488;"/>
+              <text x="770" y="190" class="room-label">FITNESS & WEIGHTS GYM</text>
+              <text x="770" y="210" class="room-dim">Cardio Treadmills • Resistance Machines</text>
+
+              <!-- Yoga & Aerobics Studio -->
+              <rect x="600" y="320" width="340" height="240" class="room-zone" style="fill:#b45309;"/>
+              <text x="770" y="430" class="room-label">YOGA & AEROBICS STUDIO</text>
+              <text x="770" y="450" class="room-dim">Mirrored Wall • Soundproof Spring Floor</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>8,000 sq ft (Total: 16,000 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>160 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>2 Staircases</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Toilets Core</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">Multi-court hardwood gymnasium with curved barrel roof, cardio & resistance fitness center, and mirrored yoga/aerobics studio.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-114</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">CENTRAL ADMINISTRATION & SECURITY GATEWAY</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">GROUND FLOOR: SECURITY COMMAND & ADMISSIONS FOYER BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-115</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="100" y="120" width="800" height="400" class="wall-thick"/>
+              <rect x="100" y="300" width="800" height="60" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="335" class="room-label">ADMINISTRATION RECEPTION CORRIDOR</text>
+
+              <!-- Security CCTV Command Center -->
+              <rect x="100" y="120" width="320" height="180" class="room-zone" style="fill:#be123c; stroke:#f43f5e;"/>
+              <text x="260" y="200" class="room-label">24/7 CCTV COMMAND CENTER</text>
+              <text x="260" y="220" class="room-dim">3 Gate Monitors • Perimeter Sensors</text>
+
+              <!-- Accounts & Cashier -->
+              <rect x="420" y="120" width="240" height="180" class="room-zone" style="fill:#475569;"/>
+              <text x="540" y="200" class="room-label">ACCOUNTS & CASHIER</text>
+              <text x="540" y="220" class="room-dim">Fee Counters</text>
+
+              <!-- Restrooms -->
+              <rect x="660" y="120" width="240" height="180" class="room-zone" style="fill:#be123c;"/>
+              <text x="780" y="200" class="room-label">GUEST TOILETS</text>
+
+              <!-- Visitor Admissions Lounge -->
+              <rect x="100" y="360" width="560" height="160" class="room-zone" style="fill:#0369a1;"/>
+              <text x="380" y="440" class="room-label">VISITOR ADMISSIONS LOUNGE</text>
+              <text x="380" y="460" class="room-dim">Guest Seating & Counseling Booths</text>
+
+              <rect x="660" y="360" width="240" height="160" class="room-zone" style="fill:#475569;"/>
+              <text x="780" y="440" class="room-label">STAIRCASE CORE</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>3,800 sq ft (Total: 7,600 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>45 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>1 Core Stair</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Restrooms</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">24/7 CCTV Security Command Center monitoring all 3 gates and perimeter walls, visitor admissions lounge, and accounts cashier windows.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-115</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+    <div class="sheet blueprint-sheet">
+      <div class="sheet-header">
+        <div class="header-left">
+          <div class="proj-name">4.5-ACRE INSTITUTIONAL SCHOOL CAMPUS MASTER PLAN</div>
+          <div class="building-name">CENTRAL ADMINISTRATION & SECURITY GATEWAY</div>
+        </div>
+        <div class="header-right">
+          <div class="sheet-title">FIRST FLOOR: BOARDROOM, IT SERVERS & HR BLUEPRINT</div>
+          <div class="sheet-number-box">SHEET A-116</div>
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        <div class="blueprint-canvas-container">
+          <div class="cad-grid-lines"></div>
+          <svg class="blueprint-svg" viewBox="0 0 1000 650">
+            
+              <rect x="100" y="120" width="800" height="400" class="wall-thick"/>
+              <rect x="100" y="300" width="800" height="60" class="room-zone" style="fill:#334155;"/>
+              <text x="500" y="335" class="room-label">EXECUTIVE MANAGEMENT CORRIDOR</text>
+
+              <!-- Executive Boardroom -->
+              <rect x="100" y="120" width="480" height="180" class="room-zone" style="fill:#0369a1;"/>
+              <text x="340" y="200" class="room-label">24-SEAT EXECUTIVE BOARDROOM</text>
+              <text x="340" y="220" class="room-dim">Video Conferencing • Executive Lounge</text>
+
+              <!-- Central Server Room -->
+              <rect x="580" y="120" width="320" height="180" class="room-zone" style="fill:#0d9488;"/>
+              <text x="740" y="200" class="room-label">CAMPUS CENTRAL SERVER ROOM</text>
+              <text x="740" y="220" class="room-dim">Network Racks • PA Console • Fire Alarm</text>
+
+              <!-- HR & Legal -->
+              <rect x="100" y="360" width="480" height="160" class="room-zone" style="fill:#475569;"/>
+              <text x="340" y="440" class="room-label">HUMAN RESOURCES & LEGAL</text>
+              <text x="340" y="460" class="room-dim">Faculty Recruitment & Management</text>
+
+              <rect x="580" y="360" width="320" height="160" class="room-zone" style="fill:#475569;"/>
+              <text x="740" y="440" class="room-label">STAIR & EXECUTIVE TOILETS</text>
+            
+          </svg>
+        </div>
+
+        <div class="sheet-sidebar">
+          <div class="sidebar-box">
+            <div class="side-title">FLOOR SPECIFICATIONS</div>
+            <div class="side-stat"><span>Built-Up Area:</span><strong>3,800 sq ft (Total: 7,600 sq ft)</strong></div>
+            <div class="side-stat"><span>Floor Occupancy:</span><strong>40 Persons</strong></div>
+            <div class="side-stat"><span>Clear Corridor:</span><strong>3.0 m (10'-0")</strong></div>
+            <div class="side-stat"><span>Fire Egress Stairs:</span><strong>1 Core Stair</strong></div>
+            <div class="side-stat"><span>Sanitary Provision:</span><strong>Restrooms</strong></div>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="side-title">ARCHITECTURAL PROGRAM & NOTES</div>
+            <div class="side-notes">24-seat executive boardroom with AV conferencing, central campus IT server room, HR and legal administrative offices.</div>
+          </div>
+
+          <div class="sidebar-box legend-box">
+            <div class="side-title">ROOM ZONING LEGEND</div>
+            <div class="leg-item"><div class="leg-color" style="background:#0284c7;"></div><span>Classrooms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#0d9488;"></div><span>Labs / STEM Facilities</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#6d28d9;"></div><span>Hostel Quad Dorms</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#b45309;"></div><span>Dining / Multi-Hall</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#475569;"></div><span>Staff / Administration</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#be123c;"></div><span>Sanitary / Fire Cores</span></div>
+            <div class="leg-item"><div class="leg-color" style="background:#15803d;"></div><span>Courtyard / Sports</span></div>
+          </div>
+
+          <div class="title-block-mini">
+            <div class="tb-row"><span>Scale:</span> 1:200 Metric / CAD 2D</div>
+            <div class="tb-row"><span>Status:</span> Master Plan Submission</div>
+            <div class="tb-row"><span>Drawn:</span> Antigravity AI Studio</div>
+            <div class="tb-row"><span>Sheet:</span> <strong>A-116</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-footer">
+        <div>NORTH ARROW: &#11014; NORTH (SPORTS PROMENADE)</div>
+        <div>IBC 2024 TABLE 1004.5 COMPLIANT • ALL DIMENSIONS ARE IN MILLIMETERS UNLESS NOTED</div>
+        <div>CONFIDENTIAL &bull; FOR CAMPUS SANCTION &amp; CONSTRUCTION PLANNING</div>
+      </div>
+    </div>
+  
+</body>
+</html>
